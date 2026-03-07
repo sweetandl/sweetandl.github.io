@@ -11,7 +11,6 @@ html,body{width:100%;overflow-x:hidden;font-family:"Microsoft YaHei",sans-serif;
 a{text-decoration:none;color:inherit}
 img{max-width:100%;height:auto}
 
-/* 主色：深天蓝 #00BFFF */
 :root {
   --main-color: #00BFFF;
   --main-light: #33CCFF;
@@ -19,13 +18,11 @@ img{max-width:100%;height:auto}
   --text-gray: #555;
 }
 
-/* 通用容器 */
 .container{max-width:1200px;margin:0 auto;padding:0 20px}
 .section{padding:60px 0}
 .title{text-align:center;font-size:32px;margin-bottom:40px;color:var(--text-dark)}
 .subtitle{text-align:center;font-size:18px;color:var(--text-gray);margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
 
-/* 导航 */
 .header{position:sticky;top:0;z-index:999;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
 .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 20px}
 .logo-img{height:50px}
@@ -34,12 +31,10 @@ img{max-width:100%;height:auto}
 .menu a:hover{color:var(--main-color)}
 .menubtn{display:none;background:none;border:none;font-size:26px}
 
-/* Banner */
 .banner{background:linear-gradient(135deg,var(--main-color),var(--main-light));color:#fff;text-align:center;padding:80px 20px}
 .banner h1{font-size:38px;margin-bottom:20px}
 .banner p{font-size:20px;max-width:800px;margin:0 auto;line-height:1.6}
 
-/* 关于我们 */
 .about{background:#fff}
 .about-content{display:flex;flex-wrap:wrap;gap:40px;align-items:center}
 .about-text{flex:1;min-width:300px}
@@ -47,14 +42,12 @@ img{max-width:100%;height:auto}
 .about-text p{line-height:1.8;color:var(--text-gray);margin-bottom:15px}
 .about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1)}
 
-/* 诊疗项目 */
 .projects{background:#f8f9fa}
 .grid{display:flex;flex-wrap:wrap;gap:24px}
 .card{flex:1;min-width:260px;background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
 .card h3{margin-bottom:12px;color:var(--main-color);font-size:20px}
 .card p{line-height:1.6;color:var(--text-gray)}
 
-/* 医师团队 */
 .doctors{background:#fff}
 .doctor-card{flex:1;min-width:250px;background:#fff;padding:24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
 .doctor-avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 16px;border:4px solid var(--main-color)}
@@ -62,7 +55,6 @@ img{max-width:100%;height:auto}
 .doctor-card .title{font-size:16px;color:var(--main-color);margin-bottom:12px}
 .doctor-card p{line-height:1.6;color:var(--text-gray);font-size:14px}
 
-/* 预约表单 */
 .booking{background:#f8f9fa}
 .booking-form{max-width:600px;margin:0 auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
 .form-group{margin-bottom:20px}
@@ -76,7 +68,6 @@ img{max-width:100%;height:auto}
 .submit-btn{width:100%;padding:14px;background:var(--main-color);color:#fff;border:none;border-radius:6px;font-size:18px;cursor:pointer}
 .submit-btn:hover{background:var(--main-light)}
 
-/* 联系我们 */
 .contact{background:#fff}
 .contact-info{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;text-align:center;margin-bottom:30px}
 .contact-item{flex:1;min-width:200px}
@@ -85,11 +76,9 @@ img{max-width:100%;height:auto}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
 .map-link{color:var(--main-color);text-decoration:underline;cursor:pointer}
 
-/* 底部 */
 .footer{background:var(--main-color);color:#fff;text-align:center;padding:40px 20px}
 .footer p{line-height:1.8;margin:6px 0}
 
-/* 手机适配 */
 @media(max-width:768px){
 .menu{display:none}
 .menubtn{display:block}
@@ -101,7 +90,6 @@ img{max-width:100%;height:auto}
 </head>
 <body>
 
-<!-- 导航 -->
 <div class="header">
   <div class="nav container">
     < img src="logo.png" alt="思维口腔" class="logo-img">
@@ -117,13 +105,11 @@ img{max-width:100%;height:auto}
   </div>
 </div>
 
-<!-- Banner -->
 <div id="home" class="banner">
   <h1>陕西思维口腔西安雁塔店</h1>
   <p>专注数字化种植、隐形矫正、儿童齿科、美学修复、牙周治疗，用心守护您的口腔健康</p >
 </div>
 
-<!-- 关于我们 -->
 <section id="about" class="section about">
   <div class="container">
     <h2 class="title">关于我们</h2>
@@ -141,7 +127,6 @@ img{max-width:100%;height:auto}
   </div>
 </section>
 
-<!-- 诊疗项目 -->
 <section id="projects" class="section projects">
   <div class="container">
     <h2 class="title">核心诊疗项目</h2>
@@ -174,7 +159,6 @@ img{max-width:100%;height:auto}
   </div>
 </section>
 
-<!-- 医师团队 -->
 <section id="doctors" class="section doctors">
   <div class="container">
     <h2 class="title">医师团队</h2>
@@ -202,7 +186,6 @@ img{max-width:100%;height:auto}
   </div>
 </section>
 
-<!-- 在线预约 -->
 <section id="booking" class="section booking">
   <div class="container">
     <h2 class="title">在线预约</h2>
@@ -241,7 +224,6 @@ img{max-width:100%;height:auto}
   </div>
 </section>
 
-<!-- 联系我们 -->
 <section id="contact" class="section contact">
   <div class="container">
     <h2 class="title">联系我们</h2>
@@ -262,7 +244,6 @@ img{max-width:100%;height:auto}
   </div>
 </section>
 
-<!-- 底部 -->
 <div class="footer">
   <p>陕西思维口腔西安雁塔店</p >
   <p>官网：www.sweetdental.cn</p >
@@ -271,26 +252,8 @@ img{max-width:100%;height:auto}
 
 <script>
 function goToMap() {
-  var name = "陕西思维口腔(西安雁塔店)";
-  var address = "西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺";
-  var isWechat = /micromessenger/i.test(navigator.userAgent);
-
-  if (isWechat) {
-    // 微信内：腾讯地图导航
-    window.open(
-      "https://apis.map.qq.com/uri/v1/marker?marker=coord:108.901926,34.198894;title:" +
-      encodeURIComponent(name) +
-      "&addr=" + encodeURIComponent(address) +
-      "&referer=sweetdental",
-      "_blank"
-    );
-  } else {
-    // 普通浏览器：百度地图导航
-    window.open(
-      "https://map.baidu.com/poi/陕西思维口腔(西安雁塔店)/@108.901926,34.198894,18z",
-      "_blank"
-    );
-  }
+  // 微信/浏览器都用这个链接，绝对不报错
+  window.open("https://map.baidu.com/s?wd=陕西思维口腔西安雁塔金泰店", "_blank");
 }
 </script>
 
