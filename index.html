@@ -206,36 +206,44 @@ img{max-width:100%;height:auto}
   <div class="container">
     <h2 class="title">在线预约</h2>
     <p class="subtitle">填写以下信息，我们将尽快为您安排就诊</p >
-    <form class="booking-form">
-      <div class="form-group">
-        <label>姓名</label>
-        <input type="text" placeholder="请输入您的姓名" required>
-      </div>
-      <div class="form-group">
-        <label>手机号码</label>
-        <input type="tel" placeholder="请输入您的手机号码" required>
-      </div>
-      <div class="form-group">
-        <label>预约项目</label>
-        <select required>
-          <option value="">请选择预约项目</option>
-          <option value="种植">数字化种植牙</option>
-          <option value="矫正">隐形矫正</option>
-          <option value="修复">美学修复</option>
-          <option value="儿牙">儿童齿科</option>
-          <option value="牙周">牙周治疗</option>
-          <option value="根管">根管治疗</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>预约时间</label>
-        <input type="date" required>
-      </div>
-      <div class="form-group">
-        <label>备注</label>
-        <textarea rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
-      </div>
-      <button type="submit" class="submit-btn">提交预约</button>
+    <form 
+  class="booking-form"
+  action="https://formsubmit.co/你的邮箱@qq.com"  
+  method="POST"
+>
+  <!-- 下面内容完全不用动 -->
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_next" value="#success">
+
+  <div class="form-group">
+    <label>姓名</label>
+    <input type="text" name="姓名" placeholder="请输入您的姓名" required>
+  </div>
+  <div class="form-group">
+    <label>手机号码</label>
+    <input type="tel" name="手机" placeholder="请输入您的手机号码" required>
+  </div>
+  <div class="form-group">
+    <label>预约项目</label>
+    <select name="预约项目" required>
+      <option value="">请选择预约项目</option>
+      <option value="数字化种植牙">数字化种植牙</option>
+      <option value="隐形矫正">隐形矫正</option>
+      <option value="美学修复">美学修复</option>
+      <option value="儿童齿科">儿童齿科</option>
+      <option value="牙周治疗">牙周治疗</option>
+      <option value="根管治疗">根管治疗</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>预约时间</label>
+    <input type="date" name="预约日期" required>
+  </div>
+  <div class="form-group">
+    <label>备注</label>
+    <textarea name="备注" rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
+  </div>
+  <button type="submit" class="submit-btn">提交预约</button>
     </form>
   </div>
 </section>
