@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -83,7 +83,7 @@ img{max-width:100%;height:auto}
 .contact-item h3{font-size:18px;color:var(--main-color);margin-bottom:10px}
 .contact-item p{font-size:16px;color:var(--text-gray)}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
-.map-link{color:var(--main-color);text-decoration:underline}
+.map-link{color:var(--main-color);text-decoration:underline;cursor:pointer}
 
 /* 底部 */
 .footer{background:var(--main-color);color:#fff;text-align:center;padding:40px 20px}
@@ -100,6 +100,7 @@ img{max-width:100%;height:auto}
 </style>
 </head>
 <body>
+
 <!-- 导航 -->
 <div class="header">
   <div class="nav container">
@@ -180,7 +181,7 @@ img{max-width:100%;height:auto}
     <p class="subtitle">汇聚资深口腔专家，为您提供专业诊疗方案</p >
     <div class="grid">
       <div class="doctor-card">
-        < img src="images/doctor1.jpg" alt="张医生" class="doctor-avatar">
+        < img src="doctor1.jpg" alt="张医生" class="doctor-avatar">
         <h3>张医生</h3>
         <p class="title">主任医师 | 种植专家</p >
         <p>15年口腔种植经验，擅长复杂种植修复，已完成千余例成功案例</p >
@@ -206,44 +207,36 @@ img{max-width:100%;height:auto}
   <div class="container">
     <h2 class="title">在线预约</h2>
     <p class="subtitle">填写以下信息，我们将尽快为您安排就诊</p >
-    <form 
-  class="booking-form"
-  action="https://formsubmit.co/596002135@qq.com"  
-  method="POST"
->
-  <!-- 下面内容完全不用动 -->
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_next" value="#success">
-
-  <div class="form-group">
-    <label>姓名</label>
-    <input type="text" name="姓名" placeholder="请输入您的姓名" required>
-  </div>
-  <div class="form-group">
-    <label>手机号码</label>
-    <input type="tel" name="手机" placeholder="请输入您的手机号码" required>
-  </div>
-  <div class="form-group">
-    <label>预约项目</label>
-    <select name="预约项目" required>
-      <option value="">请选择预约项目</option>
-      <option value="数字化种植牙">数字化种植牙</option>
-      <option value="隐形矫正">隐形矫正</option>
-      <option value="美学修复">美学修复</option>
-      <option value="儿童齿科">儿童齿科</option>
-      <option value="牙周治疗">牙周治疗</option>
-      <option value="根管治疗">根管治疗</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>预约时间</label>
-    <input type="date" name="预约日期" required>
-  </div>
-  <div class="form-group">
-    <label>备注</label>
-    <textarea name="备注" rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
-  </div>
-  <button type="submit" class="submit-btn">提交预约</button>
+    <form class="booking-form">
+      <div class="form-group">
+        <label>姓名</label>
+        <input type="text" placeholder="请输入您的姓名" required>
+      </div>
+      <div class="form-group">
+        <label>手机号码</label>
+        <input type="tel" placeholder="请输入您的手机号码" required>
+      </div>
+      <div class="form-group">
+        <label>预约项目</label>
+        <select required>
+          <option value="">请选择预约项目</option>
+          <option value="种植">数字化种植牙</option>
+          <option value="矫正">隐形矫正</option>
+          <option value="修复">美学修复</option>
+          <option value="儿牙">儿童齿科</option>
+          <option value="牙周">牙周治疗</option>
+          <option value="根管">根管治疗</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>预约时间</label>
+        <input type="date" required>
+      </div>
+      <div class="form-group">
+        <label>备注</label>
+        <textarea rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
+      </div>
+      <button type="submit" class="submit-btn">提交预约</button>
     </form>
   </div>
 </section>
@@ -259,12 +252,11 @@ img{max-width:100%;height:auto}
       </div>
       <div class="contact-item">
         <h3>📍 诊所地址</h3>
-        <p>西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺</p >
-        <p></p >
+        <p class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</p >
       </div>
       <div class="contact-item">
         <h3>⏰ 营业时间</h3>
-        <p>09:00-20:00</p >
+        <p>09:00-21:00（无假日医院）</p >
       </div>
     </div>
   </div>
@@ -276,5 +268,31 @@ img{max-width:100%;height:auto}
   <p>官网：www.sweetdental.cn</p >
   <p>© 2026 版权所有</p >
 </div>
+
+<script>
+function goToMap() {
+  var name = "陕西思维口腔(西安雁塔店)";
+  var address = "西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺";
+  var isWechat = /micromessenger/i.test(navigator.userAgent);
+
+  if (isWechat) {
+    // 微信内：腾讯地图导航
+    window.open(
+      "https://apis.map.qq.com/uri/v1/marker?marker=coord:108.901926,34.198894;title:" +
+      encodeURIComponent(name) +
+      "&addr=" + encodeURIComponent(address) +
+      "&referer=sweetdental",
+      "_blank"
+    );
+  } else {
+    // 普通浏览器：百度地图导航
+    window.open(
+      "https://map.baidu.com/poi/陕西思维口腔(西安雁塔店)/@108.901926,34.198894,18z",
+      "_blank"
+    );
+  }
+}
+</script>
+
 </body>
 </html>
