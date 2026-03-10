@@ -20,20 +20,22 @@ img{max-width:100%;height:auto;pointer-events:none}
 .section{padding:60px 0;position:relative;z-index:1}
 .title{text-align:center;font-size:32px;margin-bottom:40px;color:var(--text-dark)}
 .subtitle{text-align:center;font-size:18px;color:var(--text-gray);margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
-/* 核心：右上角logo+按钮，无遮挡 */
-.header{position:fixed;top:20px;right:20px;z-index:99999;background:transparent;padding:0;box-shadow:none;display:flex;align-items:center;gap:15px;}
-/* 恢复logo样式 */
-.logo-img{height:40px;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-/* 导航按钮：圆形悬浮，与logo并列 */
-.menubtn{display:flex;background:#fff;border-radius:50%;width:50px;height:50px;align-items:center;justify-content:center;font-size:24px;color:var(--main-color);cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,0.1);border:none;z-index:99999;position:relative;}
-/* 竖条菜单：右侧窄幅，按钮正下方 */
-.menu{display:none;flex-direction:column;position:absolute;top:70px;right:0;width:200px;background:#fff;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:15px 0;gap:2px;z-index:99998;}
+/* 核心：顶部固定栏（Logo+Slogan+菜单按钮），全程显示 */
+.header{position:fixed;top:0;left:0;right:0;z-index:99999;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);padding:15px 20px;display:flex;justify-content:space-between;align-items:center;}
+/* Logo放大+醒目样式 */
+.logo-container{display:flex;flex-direction:column;align-items:center;z-index:99999;}
+.logo-img{height:70px;/* 放大至70px，视觉突出 */margin-bottom:5px;}
+/* Slogan样式 */
+.logo-slogan{font-size:14px;color:var(--main-color);font-weight:500;letter-spacing:1px;text-align:center;}
+/* 右上角三道杠按钮 */
+.menubtn{display:flex;background:var(--main-color);color:#fff;border-radius:50%;width:50px;height:50px;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 2px 10px rgba(0,191,255,0.3);border:none;z-index:99999;position:relative;}
+/* 竖条菜单：按钮正下方 */
+.menu{display:none;flex-direction:column;position:absolute;top:90px;right:20px;width:200px;background:#fff;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:15px 0;gap:2px;z-index:99998;}
 .menu.show{display:flex;}
-/* 菜单选项样式 */
 .menu a{color:var(--text-dark);font-size:15px;padding:10px 20px;text-align:left;width:100%;}
 .menu a:hover{color:var(--main-color);background:rgba(0,191,255,0.1);}
-/* banner及其他模块样式不变 */
-.banner{background:linear-gradient(135deg,var(--main-color),var(--main-light));color:#fff;text-align:center;padding:80px 20px;position:relative;z-index:1;margin-top:0;}
+/* banner区顶部加padding，避免被固定头部遮挡 */
+.banner{background:linear-gradient(135deg,var(--main-color),var(--main-light));color:#fff;text-align:center;padding:160px 20px 80px;position:relative;z-index:1;margin-top:0;}
 .banner h1{font-size:38px;margin-bottom:20px}
 .banner p{font-size:20px;max-width:800px;margin:0 auto;line-height:1.6}
 .about{background:#fff}
@@ -101,11 +103,13 @@ img{max-width:100%;height:auto;pointer-events:none}
 .footer p{line-height:1.8;margin:6px 0}
 /* 移动端适配 */
 @media(max-width:768px){
-  .header{gap:10px;top:15px;right:15px;}
-  .logo-img{height:35px;}
+  .header{padding:10px 15px;}
+  .logo-img{height:55px;}
+  .logo-slogan{font-size:12px;}
   .menubtn{width:45px;height:45px;font-size:22px;}
-  .menu{width:180px;top:65px;}
+  .menu{width:180px;top:80px;right:15px;}
   .menu a{font-size:14px;padding:8px 18px;}
+  .banner{padding:140px 20px 60px;}
   .banner h1{font-size:28px}
   .banner p{font-size:16px}
   .title{font-size:26px}
@@ -123,11 +127,18 @@ img{max-width:100%;height:auto;pointer-events:none}
 </style>
 </head>
 <body>
-<!-- 右上角：logo + 三道杠按钮（恢复logo） -->
+<!-- 顶部固定栏：Logo（居中+放大）+ Slogan + 右上角菜单按钮 -->
 <div class="header">
-  <!-- 恢复logo标签，路径不变 -->
-  <img src="images/logo.png" alt="思维口腔" class="logo-img">
+  <!-- 左侧空容器，平衡布局 -->
+  <div class="header-empty"></div>
+  <!-- Logo+Slogan容器（居中醒目） -->
+  <div class="logo-container">
+    <img src="images/logo.png" alt="思维口腔" class="logo-img">
+    <div class="logo-slogan">专业口腔护理，守护全家笑容</div>
+  </div>
+  <!-- 右上角菜单按钮 -->
   <button class="menubtn" id="menubtn">☰</button>
+  <!-- 竖条菜单 -->
   <div class="menu" id="menu">
     <a href="#home">首页</a>
     <a href="#about">关于我们</a>
@@ -315,6 +326,7 @@ img{max-width:100%;height:auto;pointer-events:none}
         <div class="case-item"><img src="images/case6.jpg" alt="牙周治疗案例"></div>
         <div class="case-item"><img src="images/case7.jpg" alt="全瓷贴面案例"></div>
         <div class="case-item"><img src="images/case8.jpg" alt="根管治疗案例"></div>
+        <!-- 无缝滚动复制 -->
         <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
         <div class="case-item"><img src="images/case2.jpg" alt="隐形矫正案例"></div>
         <div class="case-item"><img src="images/case3.jpg" alt="金属托槽矫正案例"></div>
