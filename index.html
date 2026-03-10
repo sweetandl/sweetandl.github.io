@@ -52,8 +52,18 @@ img{max-width:100%;height:auto;pointer-events:none}
 .doctor-card h3{font-size:20px;color:var(--text-dark);margin-bottom:8px}
 .doctor-card .title{font-size:16px;color:var(--main-color);margin-bottom:12px}
 .doctor-card p{line-height:1.6;color:var(--text-gray);font-size:14px}
+/* 预约模块：包含表单和微信二维码 */
 .booking{background:#f8f9fa}
-.booking-form{max-width:600px;margin:0 auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
+.booking-wrapper{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start;}
+/* 左侧：表单预约 */
+.booking-form{flex:1;min-width:300px;max-width:600px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
+/* 右侧：微信预约（新增核心样式） */
+.booking-wechat{flex:1;min-width:300px;max-width:400px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center;}
+.wechat-qrcode{width:220px;height:220px;margin:0 auto 25px;border:8px solid #f0f0f0;border-radius:12px;padding:10px;background:#fff;box-shadow:0 0 15px rgba(0,0,0,0.08);}
+.wechat-title{font-size:22px;color:var(--main-color);margin-bottom:15px;font-weight:bold;}
+.wechat-desc{font-size:16px;color:var(--text-gray);line-height:1.8;margin-bottom:10px;}
+.wechat-tips{font-size:14px;color:#ff6b6b;font-weight:500;margin-top:20px;}
+/* 表单通用样式 */
 .form-group{margin-bottom:20px}
 .form-group label{display:block;margin-bottom:8px;color:var(--text-dark);font-weight:500}
 .form-group input,
@@ -70,7 +80,7 @@ img{max-width:100%;height:auto;pointer-events:none}
 .contact-item h3{font-size:18px;color:var(--main-color);margin-bottom:10px}
 .contact-item p{font-size:16px;color:var(--text-gray)}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
-/* 修复：增加指针光标，确保点击交互生效 */
+/* 地图链接样式 */
 .map-link{color:var(--main-color);text-decoration:underline;cursor:pointer;}
 /* 诊疗案例滚动播放样式 */
 .case{background:#fff;padding:60px 0;position:relative;z-index:1}
@@ -90,7 +100,7 @@ img{max-width:100%;height:auto;pointer-events:none}
 /* 底部footer */
 .footer{background:var(--main-color);color:#fff;text-align:center;padding:40px 20px;margin-top:0}
 .footer p{line-height:1.8;margin:6px 0}
-/* 移动端适配：仅微调按钮和菜单尺寸，保持竖条无遮挡 */
+/* 移动端适配 */
 @media(max-width:768px){
   .menubtn{width:45px;height:45px;font-size:22px;}
   .menu{width:180px;top:55px;}
@@ -106,14 +116,17 @@ img{max-width:100%;height:auto;pointer-events:none}
   .case-item{flex:0 0 200px;height:160px;margin:0 10px;}
   .case-swiper::before,
   .case-swiper::after{width:30px;}
+  /* 移动端预约模块：改为上下排列 */
+  .booking-wrapper{gap:20px;}
+  .booking-form, .booking-wechat{padding:30px 20px;}
+  .wechat-qrcode{width:180px;height:180px;}
 }
 </style>
 </head>
 <body>
-<!-- 仅右上角圆形三道杠按钮，点击滑出右侧竖条菜单 -->
+<!-- 右上角竖条菜单 -->
 <div class="header">
   <button class="menubtn" id="menubtn">☰</button>
-  <!-- 右侧竖条菜单：按钮正下方，窄幅不遮挡 -->
   <div class="menu" id="menu">
     <a href="#home">首页</a>
     <a href="#about">关于我们</a>
@@ -217,42 +230,57 @@ img{max-width:100%;height:auto;pointer-events:none}
   </div>
 </section>
 
+<!-- 优化后的预约区：表单 + 微信二维码 -->
 <section id="booking" class="section booking">
   <div class="container">
     <h2 class="title">在线预约</h2>
-    <p class="subtitle">填写以下信息，我们将尽快为您安排就诊</p>
-    <form class="booking-form">
-      <div class="form-group">
-        <label>姓名</label>
-        <input type="text" placeholder="请输入您的姓名" required>
+    <p class="subtitle">两种方式，便捷预约，我们将尽快与您联系</p>
+    
+    <div class="booking-wrapper">
+      <!-- 左侧：表单预约 -->
+      <form class="booking-form">
+        <div class="form-group">
+          <label>姓名</label>
+          <input type="text" placeholder="请输入您的姓名" required>
+        </div>
+        <div class="form-group">
+          <label>手机号码</label>
+          <input type="tel" placeholder="请输入您的手机号码" required>
+        </div>
+        <div class="form-group">
+          <label>预约项目</label>
+          <select required>
+            <option value="">请选择预约项目</option>
+            <option value="种植">数字化种植牙</option>
+            <option value="yinxing">隐形矫正</option>
+            <option value="jinshu">金属托槽矫正</option>
+            <option value="xiufu">美学修复</option>
+            <option value="erya">儿童齿科</option>
+            <option value="zhouyang">牙周治疗</option>
+            <option value="genguan">根管治疗</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>预约时间</label>
+          <input type="date" required>
+        </div>
+        <div class="form-group">
+          <label>备注</label>
+          <textarea rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">提交预约</button>
+      </form>
+
+      <!-- 右侧：微信二维码预约（新增） -->
+      <div class="booking-wechat">
+        <h3 class="wechat-title">微信扫码 立即预约</h3>
+        <p class="wechat-desc">扫描下方二维码，添加客服微信</p>
+        <p class="wechat-desc">发送【预约项目+姓名+电话】</p>
+        <!-- 请将 src 替换为您实际的微信二维码图片路径 -->
+        <img src="images/wechat-qrcode.png" alt="微信预约二维码" class="wechat-qrcode">
+        <p class="wechat-tips">温馨提示：添加时请备注“口腔预约”</p>
       </div>
-      <div class="form-group">
-        <label>手机号码</label>
-        <input type="tel" placeholder="请输入您的手机号码" required>
-      </div>
-      <div class="form-group">
-        <label>预约项目</label>
-        <select required>
-          <option value="">请选择预约项目</option>
-          <option value="种植">数字化种植牙</option>
-          <option value="yinxing">隐形矫正</option>
-          <option value="jinshu">金属托槽矫正</option>
-          <option value="xiufu">美学修复</option>
-          <option value="erya">儿童齿科</option>
-          <option value="zhouyang">牙周治疗</option>
-          <option value="genguan">根管治疗</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>预约时间</label>
-        <input type="date" required>
-      </div>
-      <div class="form-group">
-        <label>备注</label>
-        <textarea rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
-      </div>
-      <button type="submit" class="submit-btn">提交预约</button>
-    </form>
+    </div>
   </div>
 </section>
 
@@ -266,7 +294,6 @@ img{max-width:100%;height:auto;pointer-events:none}
       </div>
       <div class="contact-item">
         <h3>📍 诊所地址</h3>
-        <!-- 修复：将onclick绑定到span，确保点击整行都生效，兼容所有浏览器 -->
         <p><span class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</span></p>
       </div>
       <div class="contact-item">
@@ -313,11 +340,14 @@ img{max-width:100%;height:auto;pointer-events:none}
 </div>
 
 <script>
-// 地图导航：优化窗口打开方式，兼容所有浏览器/微信
+// 地图导航：精准搜索
 function goToMap() {
-  window.open("https://map.baidu.com/s?wd=陕西思维口腔西安雁塔金泰店", "_blank", "noopener noreferrer");
+  const mapKeyword = "西安市雁塔区丈八东路金泰假日花城南门东侧 陕西思维口腔";
+  const encodedKeyword = encodeURIComponent(mapKeyword);
+  window.open(`https://map.baidu.com/s?wd=${encodedKeyword}`, "_blank", "noopener noreferrer");
 }
-// 竖条菜单核心交互：点击按钮展开/收起，图标切换，无遮挡
+
+// 竖条菜单交互
 const menubtn = document.getElementById('menubtn');
 const menu = document.getElementById('menu');
 menubtn.addEventListener('click', function(e) {
@@ -325,7 +355,8 @@ menubtn.addEventListener('click', function(e) {
   menu.classList.toggle('show');
   this.innerHTML = menu.classList.contains('show') ? '×' : '☰';
 });
-// 点击菜单选项自动收起，图标还原，不遮挡后续操作
+
+// 点击菜单选项收起
 const menuA = menu.querySelectorAll('a');
 menuA.forEach(item => {
   item.addEventListener('click', function(e) {
@@ -334,14 +365,14 @@ menuA.forEach(item => {
     menubtn.innerHTML = '☰';
   });
 });
-// 点击页面任意空白处，收起竖条菜单，彻底避免遮挡
+
+// 点击空白处收起菜单
 document.body.addEventListener('click', function() {
   if(menu.classList.contains('show')) {
     menu.classList.remove('show');
     menubtn.innerHTML = '☰';
   }
 });
-// 阻止菜单内点击触发空白处收起
 menu.addEventListener('click', function(e) {
   e.stopPropagation();
 });
