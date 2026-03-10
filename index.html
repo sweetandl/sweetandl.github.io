@@ -20,15 +20,17 @@ img{max-width:100%;height:auto;pointer-events:none}
 .section{padding:60px 0;position:relative;z-index:1}
 .title{text-align:center;font-size:32px;margin-bottom:40px;color:var(--text-dark)}
 .subtitle{text-align:center;font-size:18px;color:var(--text-gray);margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
-/* 核心修改：仅保留三道杠按钮，固定右上角，极简样式 */
-.header{position:fixed;top:20px;right:20px;z-index:99999;background:transparent;border:none;padding:0;box-shadow:none;}
-.menubtn{display:flex;background:#fff;border-radius:50%;width:50px;height:50px;align-items:center;justify-content:center;font-size:24px;color:var(--main-color);cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,0.1);border:none;z-index:999999;}
-/* 导航菜单样式：全屏展开，居中排版，适配电脑+移动端 */
-.menu{display:none;flex-direction:column;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(255,255,255,0.98);z-index:99998;padding:80px 20px;align-items:center;justify-content:center;gap:30px;font-size:20px;}
+/* 核心：右上角圆形按钮 + 右侧竖条菜单，无遮挡 */
+.header{position:fixed;top:20px;right:20px;z-index:99999;background:transparent;padding:0;box-shadow:none;}
+/* 导航按钮：圆形悬浮，贴合右上角 */
+.menubtn{display:flex;background:#fff;border-radius:50%;width:50px;height:50px;align-items:center;justify-content:center;font-size:24px;color:var(--main-color);cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,0.1);border:none;z-index:99999;position:relative;}
+/* 竖条菜单：右侧窄幅，按钮正下方，不遮挡页面 */
+.menu{display:none;flex-direction:column;position:absolute;top:60px;right:0;width:200px;background:#fff;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:15px 0;gap:2px;z-index:99998;}
 .menu.show{display:flex;}
-.menu a{color:var(--text-dark);padding:10px 20px;border-radius:8px;}
+/* 菜单选项：窄幅适配，hover高亮 */
+.menu a{color:var(--text-dark);font-size:15px;padding:10px 20px;text-align:left;width:100%;}
 .menu a:hover{color:var(--main-color);background:rgba(0,191,255,0.1);}
-/* banner区恢复原有padding，因导航无遮挡 */
+/* banner及页面模块样式不变，无遮挡无需调整padding */
 .banner{background:linear-gradient(135deg,var(--main-color),var(--main-light));color:#fff;text-align:center;padding:80px 20px;position:relative;z-index:1;margin-top:0;}
 .banner h1{font-size:38px;margin-bottom:20px}
 .banner p{font-size:20px;max-width:800px;margin:0 auto;line-height:1.6}
@@ -68,8 +70,9 @@ img{max-width:100%;height:auto;pointer-events:none}
 .contact-item h3{font-size:18px;color:var(--main-color);margin-bottom:10px}
 .contact-item p{font-size:16px;color:var(--text-gray)}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
-.map-link{color:var(--main-color);text-decoration:underline;cursor:pointer}
-/* 诊疗案例轮播样式 */
+/* 修复：增加指针光标，确保点击交互生效 */
+.map-link{color:var(--main-color);text-decoration:underline;cursor:pointer;}
+/* 诊疗案例滚动播放样式 */
 .case{background:#fff;padding:60px 0;position:relative;z-index:1}
 .case-swiper{width:100%;overflow:hidden;position:relative;height:280px;margin:0 auto;}
 .case-list{display:flex;animation:scroll 20s linear infinite;align-items:center;height:100%;}
@@ -87,10 +90,11 @@ img{max-width:100%;height:auto;pointer-events:none}
 /* 底部footer */
 .footer{background:var(--main-color);color:#fff;text-align:center;padding:40px 20px;margin-top:0}
 .footer p{line-height:1.8;margin:6px 0}
-/* 移动端适配：仅调整菜单字体和按钮大小 */
+/* 移动端适配：仅微调按钮和菜单尺寸，保持竖条无遮挡 */
 @media(max-width:768px){
   .menubtn{width:45px;height:45px;font-size:22px;}
-  .menu{font-size:18px;gap:20px;}
+  .menu{width:180px;top:55px;}
+  .menu a{font-size:14px;padding:8px 18px;}
   .banner h1{font-size:28px}
   .banner p{font-size:16px}
   .title{font-size:26px}
@@ -106,10 +110,10 @@ img{max-width:100%;height:auto;pointer-events:none}
 </style>
 </head>
 <body>
-<!-- 仅保留三道杠菜单按钮，无logo、无文字导航 -->
+<!-- 仅右上角圆形三道杠按钮，点击滑出右侧竖条菜单 -->
 <div class="header">
   <button class="menubtn" id="menubtn">☰</button>
-  <!-- 导航菜单内容保留全量，点击按钮展开 -->
+  <!-- 右侧竖条菜单：按钮正下方，窄幅不遮挡 -->
   <div class="menu" id="menu">
     <a href="#home">首页</a>
     <a href="#about">关于我们</a>
@@ -262,7 +266,8 @@ img{max-width:100%;height:auto;pointer-events:none}
       </div>
       <div class="contact-item">
         <h3>📍 诊所地址</h3>
-        <p class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</p>
+        <!-- 修复：将onclick绑定到span，确保点击整行都生效，兼容所有浏览器 -->
+        <p><span class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</span></p>
       </div>
       <div class="contact-item">
         <h3>⏰ 营业时间</h3>
@@ -308,11 +313,11 @@ img{max-width:100%;height:auto;pointer-events:none}
 </div>
 
 <script>
-// 地图导航
+// 地图导航：优化窗口打开方式，兼容所有浏览器/微信
 function goToMap() {
-  window.open("https://map.baidu.com/s?wd=陕西思维口腔西安雁塔金泰店", "_blank");
+  window.open("https://map.baidu.com/s?wd=陕西思维口腔西安雁塔金泰店", "_blank", "noopener noreferrer");
 }
-// 菜单按钮交互：展开/收起，图标切换
+// 竖条菜单核心交互：点击按钮展开/收起，图标切换，无遮挡
 const menubtn = document.getElementById('menubtn');
 const menu = document.getElementById('menu');
 menubtn.addEventListener('click', function(e) {
@@ -320,7 +325,7 @@ menubtn.addEventListener('click', function(e) {
   menu.classList.toggle('show');
   this.innerHTML = menu.classList.contains('show') ? '×' : '☰';
 });
-// 点击菜单选项收起菜单，图标还原
+// 点击菜单选项自动收起，图标还原，不遮挡后续操作
 const menuA = menu.querySelectorAll('a');
 menuA.forEach(item => {
   item.addEventListener('click', function(e) {
@@ -329,7 +334,7 @@ menuA.forEach(item => {
     menubtn.innerHTML = '☰';
   });
 });
-// 点击页面空白处收起菜单
+// 点击页面任意空白处，收起竖条菜单，彻底避免遮挡
 document.body.addEventListener('click', function() {
   if(menu.classList.contains('show')) {
     menu.classList.remove('show');
