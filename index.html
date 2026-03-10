@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -9,6 +9,7 @@
 body{color:#333;background:#f8f9fa}
 img{max-width:100%;border-radius:8px}
 a{text-decoration:none;color:inherit}
+<<<<<<< HEAD
 
 /* 导航 */
 .nav{position:sticky;top:0;z-index:999;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
@@ -63,6 +64,77 @@ a{text-decoration:none;color:inherit}
 /* 悬浮客服 */
 .fixed-service{position:fixed;right:20px;bottom:30px;z-index:99}
 .fixed-btn{width:55px;height:55px;border-radius:50%;background:#1a73e8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;margin:8px 0;box-shadow:0 4px 10px rgba(0,0,0,0.2)}
+=======
+img{max-width:100%;height:auto}
+
+:root {
+  --main-color: #00BFFF;
+  --main-light: #33CCFF;
+  --text-dark: #222;
+  --text-gray: #555;
+}
+
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.section{padding:60px 0}
+.title{text-align:center;font-size:32px;margin-bottom:40px;color:var(--text-dark)}
+.subtitle{text-align:center;font-size:18px;color:var(--text-gray);margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
+
+.header{position:sticky;top:0;z-index:999;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 20px}
+.logo-img{height:50px}
+.menu{display:flex;gap:32px}
+.menu a{font-size:16px;color:var(--text-dark)}
+.menu a:hover{color:var(--main-color)}
+.menubtn{display:none;background:none;border:none;font-size:26px}
+
+.banner{background:linear-gradient(135deg,var(--main-color),var(--main-light));color:#fff;text-align:center;padding:80px 20px}
+.banner h1{font-size:38px;margin-bottom:20px}
+.banner p{font-size:20px;max-width:800px;margin:0 auto;line-height:1.6}
+
+.about{background:#fff}
+.about-content{display:flex;flex-wrap:wrap;gap:40px;align-items:center}
+.about-text{flex:1;min-width:300px}
+.about-text h3{font-size:24px;color:var(--main-color);margin-bottom:20px}
+.about-text p{line-height:1.8;color:var(--text-gray);margin-bottom:15px}
+.about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1)}
+
+.projects{background:#f8f9fa}
+.grid{display:flex;flex-wrap:wrap;gap:24px}
+.card{flex:1;min-width:260px;background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
+.card h3{margin-bottom:12px;color:var(--main-color);font-size:20px}
+.card p{line-height:1.6;color:var(--text-gray)}
+
+.doctors{background:#fff}
+.doctor-card{flex:1;min-width:250px;background:#fff;padding:24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
+.doctor-avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 16px;border:4px solid var(--main-color)}
+.doctor-card h3{font-size:20px;color:var(--text-dark);margin-bottom:8px}
+.doctor-card .title{font-size:16px;color:var(--main-color);margin-bottom:12px}
+.doctor-card p{line-height:1.6;color:var(--text-gray);font-size:14px}
+
+.booking{background:#f8f9fa}
+.booking-form{max-width:600px;margin:0 auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;margin-bottom:8px;color:var(--text-dark);font-weight:500}
+.form-group input,
+.form-group select,
+.form-group textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:6px;font-size:16px;font-family:inherit}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{outline:none;border-color:var(--main-color)}
+.submit-btn{width:100%;padding:14px;background:var(--main-color);color:#fff;border:none;border-radius:6px;font-size:18px;cursor:pointer}
+.submit-btn:hover{background:var(--main-light)}
+
+.contact{background:#fff}
+.contact-info{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;text-align:center;margin-bottom:30px}
+.contact-item{flex:1;min-width:200px}
+.contact-item h3{font-size:18px;color:var(--main-color);margin-bottom:10px}
+.contact-item p{font-size:16px;color:var(--text-gray)}
+.tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
+.map-link{color:var(--main-color);text-decoration:underline;cursor:pointer}
+
+.footer{background:var(--main-color);color:#fff;text-align:center;padding:40px 20px}
+.footer p{line-height:1.8;margin:6px 0}
+>>>>>>> b427f0821843599a2e97bba575259fffc21ef56e
 
 @media(max-width:768px){
 .nav-menu{display:none}
@@ -77,11 +149,18 @@ a{text-decoration:none;color:inherit}
 
 <body>
 
+<<<<<<< HEAD
 <!-- 导航 -->
 <div class="nav">
   <div class="nav-wrap">
     <div class="logo">西安思维口腔</div>
     <div class="nav-menu">
+=======
+<div class="header">
+  <div class="nav container">
+    < img src="logo.png" alt="思维口腔" class="logo-img">
+    <div class="menu">
+>>>>>>> b427f0821843599a2e97bba575259fffc21ef56e
       首页
       关于我们
       诊疗项目
@@ -93,6 +172,7 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
+<<<<<<< HEAD
 <!-- 轮播横幅 -->
 <div class="banner" id="home">
   <div class="banner-box">
@@ -109,9 +189,31 @@ a{text-decoration:none;color:inherit}
     陕西思维口腔·西安雁塔店是位于西安市雁塔区的正规专业口腔机构，<br>
     坐落于金泰假日花城1期南大门东侧，拥有专业医师团队、数字化诊疗设备、无菌安全诊疗环境，<br>
     为您提供一站式、舒适化、高品质口腔服务，营业时间09:00-20:00，让每一位患者都能放心看牙，自信微笑。
+=======
+<div id="home" class="banner">
+  <h1>陕西思维口腔西安雁塔店</h1>
+  <p>专注数字化种植、隐形矫正、儿童齿科、美学修复、牙周治疗，用心守护您的口腔健康</p >
+</div>
+
+<section id="about" class="section about">
+  <div class="container">
+    <h2 class="title">关于我们</h2>
+    <p class="subtitle">陕西思维口腔是一家专业口腔诊疗机构，致力于为每一位患者提供高品质、人性化的口腔医疗服务</p >
+    <div class="about-content">
+      <div class="about-text">
+        <h3>专业诊疗，品质保障</h3>
+        <p>我们拥有一支经验丰富的医师团队，引进先进的数字化诊疗设备，严格遵循国际医疗标准，为您提供安全、舒适的诊疗体验。</p >
+        <p>从预防保健到复杂修复，从儿童齿科到成人正畸，我们覆盖全年龄段口腔健康需求，让您和家人都能拥有健康美丽的笑容。</p >
+      </div>
+      <div class="about-img">
+        < img src="clinic.jpg" alt="诊所环境">
+      </div>
+    </div>
+>>>>>>> b427f0821843599a2e97bba575259fffc21ef56e
   </div>
 </div>
 
+<<<<<<< HEAD
 <!-- 诊疗项目 -->
 <div class="container" id="service">
   <div class="title">诊疗项目</div>
@@ -139,6 +241,36 @@ a{text-decoration:none;color:inherit}
     <div class="card">
       <h3>美学修复</h3>
       <p>全瓷牙、烤瓷牙、嵌体，美观耐用</p >
+=======
+<section id="projects" class="section projects">
+  <div class="container">
+    <h2 class="title">核心诊疗项目</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>数字化种植牙</h3>
+        <p>精准种植、稳固耐用、恢复咀嚼功能，媲美真牙</p >
+      </div>
+      <div class="card">
+        <h3>隐形矫正</h3>
+        <p>透明舒适、美观隐形，轻松矫正不齐牙齿</p >
+      </div>
+      <div class="card">
+        <h3>美学修复</h3>
+        <p>牙齿美白、全瓷贴面、全瓷牙，提升笑容自信</p >
+      </div>
+      <div class="card">
+        <h3>儿童齿科</h3>
+        <p>温柔诊疗、早期矫正、预防蛀牙，守护孩子成长</p >
+      </div>
+      <div class="card">
+        <h3>牙周治疗</h3>
+        <p>洗牙、刮治、牙周护理，解决牙龈出血口臭</p >
+      </div>
+      <div class="card">
+        <h3>根管治疗</h3>
+        <p>保留坏牙、缓解牙痛，快速修复受损牙髓</p >
+      </div>
+>>>>>>> b427f0821843599a2e97bba575259fffc21ef56e
     </div>
   </div>
 </div>
@@ -162,6 +294,7 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
+<<<<<<< HEAD
 <!-- 医师团队 -->
 <div class="container" id="doctor">
   <div class="title">医师团队</div>
@@ -175,10 +308,36 @@ a{text-decoration:none;color:inherit}
       < img src="images/doctor-gao.jpg" alt="高医生">
       <h4>高医生</h4>
       <p>种植专科</p >
+=======
+<section id="doctors" class="section doctors">
+  <div class="container">
+    <h2 class="title">医师团队</h2>
+    <p class="subtitle">汇聚资深口腔专家，为您提供专业诊疗方案</p >
+    <div class="grid">
+      <div class="doctor-card">
+        < img src="doctor1.jpg" alt="张医生" class="doctor-avatar">
+        <h3>张医生</h3>
+        <p class="title">主任医师 | 种植专家</p >
+        <p>15年口腔种植经验，擅长复杂种植修复，已完成千余例成功案例</p >
+      </div>
+      <div class="doctor-card">
+        < img src="doctor2.jpg" alt="李医生" class="doctor-avatar">
+        <h3>李医生</h3>
+        <p class="title">主治医师 | 正畸专家</p >
+        <p>专注隐形矫正技术，擅长儿童及成人各类错颌畸形矫治</p >
+      </div>
+      <div class="doctor-card">
+        < img src="doctor3.jpg" alt="王医生" class="doctor-avatar">
+        <h3>王医生</h3>
+        <p class="title">主治医师 | 儿牙专家</p >
+        <p>温柔耐心，擅长儿童行为管理及早期咬合诱导，深受小朋友喜爱</p >
+      </div>
+>>>>>>> b427f0821843599a2e97bba575259fffc21ef56e
     </div>
   </div>
 </div>
 
+<<<<<<< HEAD
 <!-- 联系预约 -->
 <div class="container" id="contact">
   <div class="title">联系预约</div>
@@ -189,8 +348,46 @@ a{text-decoration:none;color:inherit}
     <div class="contact-item"><strong>💬 微信：</strong>18700078881（微信同号）</div>
     <div class="contact-item"><strong>🕒 营业时间：</strong>周一至周日 09:00-20:00</div>
     <div class="contact-item"><strong>🌐 官网：</strong>www.sweetdental.cn</div>
+=======
+<section id="booking" class="section booking">
+  <div class="container">
+    <h2 class="title">在线预约</h2>
+    <p class="subtitle">填写以下信息，我们将尽快为您安排就诊</p >
+    <form class="booking-form">
+      <div class="form-group">
+        <label>姓名</label>
+        <input type="text" placeholder="请输入您的姓名" required>
+      </div>
+      <div class="form-group">
+        <label>手机号码</label>
+        <input type="tel" placeholder="请输入您的手机号码" required>
+      </div>
+      <div class="form-group">
+        <label>预约项目</label>
+        <select required>
+          <option value="">请选择预约项目</option>
+          <option value="种植">数字化种植牙</option>
+          <option value="矫正">隐形矫正</option>
+          <option value="修复">美学修复</option>
+          <option value="儿牙">儿童齿科</option>
+          <option value="牙周">牙周治疗</option>
+          <option value="根管">根管治疗</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>预约时间</label>
+        <input type="date" required>
+      </div>
+      <div class="form-group">
+        <label>备注</label>
+        <textarea rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
+      </div>
+      <button type="submit" class="submit-btn">提交预约</button>
+    </form>
+>>>>>>> b427f0821843599a2e97bba575259fffc21ef56e
   </div>
 
+<<<<<<< HEAD
   <br>
   <!-- 嵌入精准百度地图链接：https://j.map.baidu.com/41/RwUK -->
   <div class="map-box">
@@ -204,6 +401,24 @@ a{text-decoration:none;color:inherit}
     <div class="form-item">
       <label>姓名</label>
       <input type="text" placeholder="请输入您的姓名">
+=======
+<section id="contact" class="section contact">
+  <div class="container">
+    <h2 class="title">联系我们</h2>
+    <div class="contact-info">
+      <div class="contact-item">
+        <h3>📞 预约电话</h3>
+        187-0007-8881
+      </div>
+      <div class="contact-item">
+        <h3>📍 诊所地址</h3>
+        <p class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</p >
+      </div>
+      <div class="contact-item">
+        <h3>⏰ 营业时间</h3>
+        <p>09:00-21:00（无假日医院）</p >
+      </div>
+>>>>>>> b427f0821843599a2e97bba575259fffc21ef56e
     </div>
     <div class="form-item">
       <label>电话</label>
@@ -226,11 +441,20 @@ a{text-decoration:none;color:inherit}
   <div class="fixed-btn">📞</div>
 </div>
 
-<!-- 底部 -->
 <div class="footer">
   <p>陕西思维口腔·西安雁塔店 © 版权所有</p >
   <p>官网：www.sweetdental.cn | 咨询电话：18700078881</p >
 </div>
 
+<<<<<<< HEAD
+=======
+<script>
+function goToMap() {
+  // 微信/浏览器都用这个链接，绝对不报错
+  window.open("https://map.baidu.com/s?wd=陕西思维口腔西安雁塔金泰店", "_blank");
+}
+</script>
+
+>>>>>>> b427f0821843599a2e97bba575259fffc21ef56e
 </body>
 </html>
