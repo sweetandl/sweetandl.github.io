@@ -294,6 +294,7 @@ img{max-width:100%;height:auto;pointer-events:none}
       </div>
       <div class="contact-item">
         <h3>📍 诊所地址</h3>
+        <!-- 替换为高德地图精准导航链接，点击直接跳转无错误 -->
         <p><span class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</span></p>
       </div>
       <div class="contact-item">
@@ -340,11 +341,10 @@ img{max-width:100%;height:auto;pointer-events:none}
 </div>
 
 <script>
-// 地图导航：精准搜索
+// 核心修复：替换为高德地图精准导航链接，无错误提示
 function goToMap() {
-  const mapKeyword = "西安市雁塔区丈八东路金泰假日花城南门东侧 陕西思维口腔";
-  const encodedKeyword = encodeURIComponent(mapKeyword);
-  window.open(`https://map.baidu.com/s?wd=${encodedKeyword}`, "_blank", "noopener noreferrer");
+  // 直接使用提供的高德地图专属链接，点击跳转至诊所精准位置
+  window.open("https://surl.amap.com/5IMG8ZYd3Kd", "_blank", "noopener noreferrer");
 }
 
 // 竖条菜单交互
