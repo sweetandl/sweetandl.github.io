@@ -20,17 +20,19 @@ img{max-width:100%;height:auto;pointer-events:none}
 .section{padding:60px 0;position:relative;z-index:1}
 .title{text-align:center;font-size:32px;margin-bottom:40px;color:var(--text-dark)}
 .subtitle{text-align:center;font-size:18px;color:var(--text-gray);margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
-/* 核心：右上角圆形按钮 + 右侧竖条菜单，无遮挡 */
-.header{position:fixed;top:20px;right:20px;z-index:99999;background:transparent;padding:0;box-shadow:none;}
-/* 导航按钮：圆形悬浮，贴合右上角 */
+/* 核心：右上角logo+按钮，无遮挡 */
+.header{position:fixed;top:20px;right:20px;z-index:99999;background:transparent;padding:0;box-shadow:none;display:flex;align-items:center;gap:15px;}
+/* 恢复logo样式 */
+.logo-img{height:40px;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+/* 导航按钮：圆形悬浮，与logo并列 */
 .menubtn{display:flex;background:#fff;border-radius:50%;width:50px;height:50px;align-items:center;justify-content:center;font-size:24px;color:var(--main-color);cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,0.1);border:none;z-index:99999;position:relative;}
-/* 竖条菜单：右侧窄幅，按钮正下方，不遮挡页面 */
-.menu{display:none;flex-direction:column;position:absolute;top:60px;right:0;width:200px;background:#fff;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:15px 0;gap:2px;z-index:99998;}
+/* 竖条菜单：右侧窄幅，按钮正下方 */
+.menu{display:none;flex-direction:column;position:absolute;top:70px;right:0;width:200px;background:#fff;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:15px 0;gap:2px;z-index:99998;}
 .menu.show{display:flex;}
-/* 菜单选项：窄幅适配，hover高亮 */
+/* 菜单选项样式 */
 .menu a{color:var(--text-dark);font-size:15px;padding:10px 20px;text-align:left;width:100%;}
 .menu a:hover{color:var(--main-color);background:rgba(0,191,255,0.1);}
-/* banner及页面模块样式不变，无遮挡无需调整padding */
+/* banner及其他模块样式不变 */
 .banner{background:linear-gradient(135deg,var(--main-color),var(--main-light));color:#fff;text-align:center;padding:80px 20px;position:relative;z-index:1;margin-top:0;}
 .banner h1{font-size:38px;margin-bottom:20px}
 .banner p{font-size:20px;max-width:800px;margin:0 auto;line-height:1.6}
@@ -52,12 +54,10 @@ img{max-width:100%;height:auto;pointer-events:none}
 .doctor-card h3{font-size:20px;color:var(--text-dark);margin-bottom:8px}
 .doctor-card .title{font-size:16px;color:var(--main-color);margin-bottom:12px}
 .doctor-card p{line-height:1.6;color:var(--text-gray);font-size:14px}
-/* 预约模块：包含表单和微信二维码 */
+/* 预约模块样式 */
 .booking{background:#f8f9fa}
 .booking-wrapper{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start;}
-/* 左侧：表单预约 */
 .booking-form{flex:1;min-width:300px;max-width:600px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
-/* 右侧：微信预约（新增核心样式） */
 .booking-wechat{flex:1;min-width:300px;max-width:400px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center;}
 .wechat-qrcode{width:220px;height:220px;margin:0 auto 25px;border:8px solid #f0f0f0;border-radius:12px;padding:10px;background:#fff;box-shadow:0 0 15px rgba(0,0,0,0.08);}
 .wechat-title{font-size:22px;color:var(--main-color);margin-bottom:15px;font-weight:bold;}
@@ -80,9 +80,8 @@ img{max-width:100%;height:auto;pointer-events:none}
 .contact-item h3{font-size:18px;color:var(--main-color);margin-bottom:10px}
 .contact-item p{font-size:16px;color:var(--text-gray)}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
-/* 地图链接样式 */
 .map-link{color:var(--main-color);text-decoration:underline;cursor:pointer;}
-/* 诊疗案例滚动播放样式 */
+/* 案例轮播样式 */
 .case{background:#fff;padding:60px 0;position:relative;z-index:1}
 .case-swiper{width:100%;overflow:hidden;position:relative;height:280px;margin:0 auto;}
 .case-list{display:flex;animation:scroll 20s linear infinite;align-items:center;height:100%;}
@@ -102,8 +101,10 @@ img{max-width:100%;height:auto;pointer-events:none}
 .footer p{line-height:1.8;margin:6px 0}
 /* 移动端适配 */
 @media(max-width:768px){
+  .header{gap:10px;top:15px;right:15px;}
+  .logo-img{height:35px;}
   .menubtn{width:45px;height:45px;font-size:22px;}
-  .menu{width:180px;top:55px;}
+  .menu{width:180px;top:65px;}
   .menu a{font-size:14px;padding:8px 18px;}
   .banner h1{font-size:28px}
   .banner p{font-size:16px}
@@ -111,12 +112,10 @@ img{max-width:100%;height:auto;pointer-events:none}
   .card-img{width:80px;height:80px}
   .grid{gap:16px;}
   .card{padding:24px 16px;}
-  /* 移动端案例轮播适配 */
   .case-swiper{height:220px;}
   .case-item{flex:0 0 200px;height:160px;margin:0 10px;}
   .case-swiper::before,
   .case-swiper::after{width:30px;}
-  /* 移动端预约模块：改为上下排列 */
   .booking-wrapper{gap:20px;}
   .booking-form, .booking-wechat{padding:30px 20px;}
   .wechat-qrcode{width:180px;height:180px;}
@@ -124,8 +123,10 @@ img{max-width:100%;height:auto;pointer-events:none}
 </style>
 </head>
 <body>
-<!-- 右上角竖条菜单 -->
+<!-- 右上角：logo + 三道杠按钮（恢复logo） -->
 <div class="header">
+  <!-- 恢复logo标签，路径不变 -->
+  <img src="images/logo.png" alt="思维口腔" class="logo-img">
   <button class="menubtn" id="menubtn">☰</button>
   <div class="menu" id="menu">
     <a href="#home">首页</a>
@@ -230,14 +231,12 @@ img{max-width:100%;height:auto;pointer-events:none}
   </div>
 </section>
 
-<!-- 优化后的预约区：表单 + 微信二维码 -->
 <section id="booking" class="section booking">
   <div class="container">
     <h2 class="title">在线预约</h2>
     <p class="subtitle">两种方式，便捷预约，我们将尽快与您联系</p>
     
     <div class="booking-wrapper">
-      <!-- 左侧：表单预约 -->
       <form class="booking-form">
         <div class="form-group">
           <label>姓名</label>
@@ -271,12 +270,10 @@ img{max-width:100%;height:auto;pointer-events:none}
         <button type="submit" class="submit-btn">提交预约</button>
       </form>
 
-      <!-- 右侧：微信二维码预约（新增） -->
       <div class="booking-wechat">
         <h3 class="wechat-title">微信扫码 立即预约</h3>
         <p class="wechat-desc">扫描下方二维码，添加客服微信</p>
         <p class="wechat-desc">发送【预约项目+姓名+电话】</p>
-        <!-- 请将 src 替换为您实际的微信二维码图片路径 -->
         <img src="images/wechat-qrcode.png" alt="微信预约二维码" class="wechat-qrcode">
         <p class="wechat-tips">温馨提示：添加时请备注“口腔预约”</p>
       </div>
@@ -294,7 +291,6 @@ img{max-width:100%;height:auto;pointer-events:none}
       </div>
       <div class="contact-item">
         <h3>📍 诊所地址</h3>
-        <!-- 替换为高德地图精准导航链接，点击直接跳转无错误 -->
         <p><span class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</span></p>
       </div>
       <div class="contact-item">
@@ -305,7 +301,6 @@ img{max-width:100%;height:auto;pointer-events:none}
   </div>
 </section>
 
-<!-- 诊疗案例滚动播放模块 -->
 <section id="case" class="case">
   <div class="container">
     <h2 class="title">诊疗案例展示</h2>
@@ -320,7 +315,6 @@ img{max-width:100%;height:auto;pointer-events:none}
         <div class="case-item"><img src="images/case6.jpg" alt="牙周治疗案例"></div>
         <div class="case-item"><img src="images/case7.jpg" alt="全瓷贴面案例"></div>
         <div class="case-item"><img src="images/case8.jpg" alt="根管治疗案例"></div>
-        <!-- 无缝滚动复制 -->
         <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
         <div class="case-item"><img src="images/case2.jpg" alt="隐形矫正案例"></div>
         <div class="case-item"><img src="images/case3.jpg" alt="金属托槽矫正案例"></div>
@@ -341,13 +335,12 @@ img{max-width:100%;height:auto;pointer-events:none}
 </div>
 
 <script>
-// 核心修复：替换为高德地图精准导航链接，无错误提示
+// 高德地图导航
 function goToMap() {
-  // 直接使用提供的高德地图专属链接，点击跳转至诊所精准位置
   window.open("https://surl.amap.com/5IMG8ZYd3Kd", "_blank", "noopener noreferrer");
 }
 
-// 竖条菜单交互
+// 菜单交互
 const menubtn = document.getElementById('menubtn');
 const menu = document.getElementById('menu');
 menubtn.addEventListener('click', function(e) {
@@ -356,7 +349,6 @@ menubtn.addEventListener('click', function(e) {
   this.innerHTML = menu.classList.contains('show') ? '×' : '☰';
 });
 
-// 点击菜单选项收起
 const menuA = menu.querySelectorAll('a');
 menuA.forEach(item => {
   item.addEventListener('click', function(e) {
@@ -366,7 +358,6 @@ menuA.forEach(item => {
   });
 });
 
-// 点击空白处收起菜单
 document.body.addEventListener('click', function() {
   if(menu.classList.contains('show')) {
     menu.classList.remove('show');
