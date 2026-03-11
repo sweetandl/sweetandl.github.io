@@ -43,13 +43,25 @@ img{max-width:100%;height:auto;pointer-events:none}
 .about-text{flex:1;min-width:300px}
 .about-text h3{font-size:24px;color:var(--main-color);margin-bottom:20px}
 .about-text p{line-height:1.8;color:var(--text-gray);margin-bottom:15px}
-.about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1)}
+/* 诊所环境5张图轮播样式 - 核心修改 */
+.about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1);position:relative;height:400px;}
+.clinic-swiper{width:100%;height:100%;overflow:hidden;position:relative;}
+.clinic-list{display:flex;width:100%;height:100%;animation:clinicScroll 20s linear infinite;}
+.clinic-item{flex:0 0 100%;height:100%;}
+.clinic-item img{width:100%;height:100%;object-fit:cover;}
+.about-img:hover .clinic-list{animation-play-state:paused;}
+@keyframes clinicScroll {
+  0% {transform:translateX(0);}
+  100% {transform:translateX(-500%);}
+}
+/* 诊疗项目样式 */
 .projects{background:#f8f9fa}
 .grid{display:flex;flex-wrap:wrap;gap:24px}
 .card{flex:1;min-width:260px;background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
 .card-img{width:100px;height:100px;object-fit:contain;margin:0 auto 20px;filter:drop-shadow(0 2px 5px rgba(0,191,255,0.2))}
 .card h3{margin-bottom:12px;color:var(--main-color);font-size:20px}
 .card p{line-height:1.6;color:var(--text-gray)}
+/* 医师团队样式 */
 .doctors{background:#fff}
 .doctor-card{flex:1;min-width:250px;background:#fff;padding:24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
 .doctor-avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 16px;border:4px solid var(--main-color)}
@@ -76,6 +88,7 @@ img{max-width:100%;height:auto;pointer-events:none}
 .form-group textarea:focus{outline:none;border-color:var(--main-color)}
 .submit-btn{width:100%;padding:14px;background:var(--main-color);color:#fff;border:none;border-radius:6px;font-size:18px;cursor:pointer}
 .submit-btn:hover{background:var(--main-light)}
+/* 联系我们样式 */
 .contact{background:#fff}
 .contact-info{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;text-align:center;margin-bottom:30px}
 .contact-item{flex:1;min-width:200px}
@@ -114,6 +127,8 @@ img{max-width:100%;height:auto;pointer-events:none}
   .banner h1{font-size:28px}
   .banner p{font-size:16px}
   .title{font-size:26px}
+  /* 诊所轮播移动端适配 */
+  .about-img{height:300px;}
   .card-img{width:80px;height:80px}
   .grid{gap:16px;}
   .card{padding:24px 16px;}
@@ -130,14 +145,11 @@ img{max-width:100%;height:auto;pointer-events:none}
 <body>
 <!-- 顶部布局：左上角长条Logo + 右上角菜单按钮 -->
 <div class="header">
-  <!-- 左上角悬浮长条Logo（圆角+渐变+文字） -->
   <div class="logo-bar">
     <div class="logo-text">思维口腔</div>
     <div class="logo-slogan">守护口腔健康</div>
   </div>
-  <!-- 右上角菜单按钮 -->
   <button class="menubtn" id="menubtn">☰</button>
-  <!-- 竖条菜单 -->
   <div class="menu" id="menu">
     <a href="#home">首页</a>
     <a href="#about">关于我们</a>
@@ -162,8 +174,19 @@ img{max-width:100%;height:auto;pointer-events:none}
         <p>我们拥有一支经验丰富的医师团队，引进先进的数字化诊疗设备，严格遵循国际医疗标准，为您提供安全、舒适的诊疗体验。</p>
         <p>从预防保健到复杂修复，从儿童齿科到成人正畸，我们覆盖全年龄段口腔健康需求，让您和家人都能拥有健康美丽的笑容。</p>
       </div>
+      <!-- 诊所环境5张图轮播 - HTML结构 -->
       <div class="about-img">
-        <img src="images/clinic.jpg" alt="诊所环境">
+        <div class="clinic-swiper">
+          <div class="clinic-list">
+            <div class="clinic-item"><img src="images/clinic1.jpg" alt="诊所环境1"></div>
+            <div class="clinic-item"><img src="images/clinic2.jpg" alt="诊所环境2"></div>
+            <div class="clinic-item"><img src="images/clinic3.jpg" alt="诊所环境3"></div>
+            <div class="clinic-item"><img src="images/clinic4.jpg" alt="诊所环境4"></div>
+            <div class="clinic-item"><img src="images/clinic5.jpg" alt="诊所环境5"></div>
+            <!-- 无缝衔接：复制第一张图 -->
+            <div class="clinic-item"><img src="images/clinic1.jpg" alt="诊所环境1"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -240,7 +263,6 @@ img{max-width:100%;height:auto;pointer-events:none}
   <div class="container">
     <h2 class="title">在线预约</h2>
     <p class="subtitle">两种方式，便捷预约，我们将尽快与您联系</p>
-    
     <div class="booking-wrapper">
       <form class="booking-form">
         <div class="form-group">
@@ -317,7 +339,6 @@ img{max-width:100%;height:auto;pointer-events:none}
         <div class="case-item"><img src="images/case6.jpg" alt="牙周治疗案例"></div>
         <div class="case-item"><img src="images/case7.jpg" alt="全瓷贴面案例"></div>
         <div class="case-item"><img src="images/case8.jpg" alt="根管治疗案例"></div>
-        <!-- 无缝滚动复制 -->
         <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
         <div class="case-item"><img src="images/case2.jpg" alt="隐形矫正案例"></div>
         <div class="case-item"><img src="images/case3.jpg" alt="金属托槽矫正案例"></div>
