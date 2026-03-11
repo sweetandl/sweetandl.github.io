@@ -43,10 +43,10 @@ img{max-width:100%;height:auto;pointer-events:none}
 .about-text{flex:1;min-width:300px}
 .about-text h3{font-size:24px;color:var(--main-color);margin-bottom:20px}
 .about-text p{line-height:1.8;color:var(--text-gray);margin-bottom:15px}
-/* 诊所环境6张图轮播样式 - 点击切图+匀速循环 */
+/* 诊所环境6张图轮播样式 - 与案例轮播速度统一 */
 .about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1);position:relative;height:400px;cursor:pointer;}
 .clinic-swiper{width:100%;height:100%;overflow:hidden;position:relative;}
-.clinic-list{display:flex;width:100%;height:100%;position:relative;transition:transform 0.5s ease-out;}
+.clinic-list{display:flex;width:100%;height:100%;position:relative;transition:transform 0.3s ease-out;}
 .clinic-item{flex:0 0 100%;height:100%;}
 .clinic-item img{width:100%;height:100%;object-fit:cover;}
 /* 诊疗项目样式 - 图片放大 */
@@ -95,7 +95,7 @@ img{max-width:100%;height:auto;pointer-events:none}
 .contact-item p{font-size:16px;color:var(--text-gray)}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
 .map-link{color:var(--main-color);text-decoration:underline;cursor:pointer;}
-/* 案例轮播样式 - 点击切图+加速播放 */
+/* 案例轮播样式 - 与诊所轮播速度统一 */
 .case{background:#fff;padding:60px 0;position:relative;z-index:1}
 .case-swiper{width:100%;overflow:hidden;position:relative;height:280px;margin:0 auto;cursor:pointer;}
 .case-list{display:flex;align-items:center;height:100%;position:relative;transition:transform 0.3s ease-out;}
@@ -172,7 +172,7 @@ img{max-width:100%;height:auto;pointer-events:none}
         <p>我们拥有一支经验丰富的医师团队，引进先进的数字化诊疗设备，严格遵循国际医疗标准，为您提供安全、舒适的诊疗体验。</p>
         <p>从预防保健到复杂修复，从儿童齿科到成人正畸，我们覆盖全年龄段口腔健康需求，让您和家人都能拥有健康美丽的笑容。</p>
       </div>
-      <!-- 诊所环境6张图轮播 - 点击切图+匀速循环 -->
+      <!-- 诊所环境6张图轮播 - 与案例轮播速度统一 -->
       <div class="about-img" id="clinicSwiper">
         <div class="clinic-swiper">
           <div class="clinic-list" id="clinicList">
@@ -416,59 +416,62 @@ if (qrcodeImg) {
   });
 }
 
-// 诊所环境轮播核心：点击切图+不点击匀速循环播放（移除拖动功能）
+// 统一轮播速度配置：诊所轮播与案例轮播保持一致（1500ms/张）
+const commonConfig = {
+  speed: 1500, // 统一自动播放间隔（1.5秒/张）
+  transition: 0.3 // 统一切换过渡时长（0.3秒）
+};
+
+// 诊所环境轮播核心：点击切图+匀速循环（与案例轮播速度统一）
 const clinicSwiper = document.getElementById('clinicSwiper');
 const clinicList = document.getElementById('clinicList');
 let clinicAutoTimer = null;
 const clinicConfig = {
-  speed: 4000, // 匀速播放间隔（4秒/张，可调整）
-  imgCount: 6, // 实际图片数量
-  currentIndex: 0 // 当前显示索引
+  ...commonConfig, // 继承统一配置
+  imgCount: 6,
+  currentIndex: 0
 };
-// 初始化诊所轮播：启动自动播放+绑定点击事件
+// 初始化诊所轮播
 window.addEventListener('load', initClinicSwiper);
-// 窗口大小变化时重置轮播位置
 window.addEventListener('resize', function() {
   clinicList.style.transition = 'none';
   setClinicTransform(clinicConfig.currentIndex);
 });
-// 左键点击切下一张
+// 诊所轮播点击切图
 clinicSwiper.addEventListener('click', function(e) {
   if (e.button === 0) {
     nextClinicSlide();
-    // 点击后重置自动播放计时器
     clearInterval(clinicAutoTimer);
     clinicAutoTimer = setInterval(autoClinicSlide, clinicConfig.speed);
   }
 });
 // 初始化诊所轮播
 function initClinicSwiper() {
-  // 启动匀速自动播放
   clinicAutoTimer = setInterval(autoClinicSlide, clinicConfig.speed);
 }
-// 诊所轮播自动切换下一张
+// 诊所轮播自动切换
 function autoClinicSlide() {
   clinicConfig.currentIndex = (clinicConfig.currentIndex + 1) % clinicConfig.imgCount;
   setClinicTransform(clinicConfig.currentIndex);
 }
-// 诊所轮播手动切换下一张（点击触发）
+// 诊所轮播手动切换
 function nextClinicSlide() {
   clinicConfig.currentIndex = (clinicConfig.currentIndex + 1) % clinicConfig.imgCount;
   setClinicTransform(clinicConfig.currentIndex);
 }
-// 设置诊所轮播偏移位置
+// 设置诊所轮播偏移
 function setClinicTransform(index) {
   const slideWidth = clinicSwiper.offsetWidth;
   clinicList.style.transform = `translateX(-${index * slideWidth}px)`;
 }
 
-// 案例轮播核心功能（保留点击切图+加速播放）
+// 案例轮播核心：点击切图+匀速循环（与诊所轮播速度统一）
 const caseSwiper = document.getElementById('caseSwiper');
 const caseList = document.getElementById('caseList');
 let caseAutoTimer = null;
 let caseItemWidth = 0;
 const caseConfig = {
-  speed: 1500,
+  ...commonConfig, // 继承统一配置
   itemCount: 8
 };
 // 初始化案例轮播
@@ -487,7 +490,7 @@ caseSwiper.addEventListener('mouseenter', function() {
 caseSwiper.addEventListener('mouseleave', function() {
   startCaseAutoPlay();
 });
-// 初始化案例轮播参数
+// 初始化案例轮播
 function initCaseSwiper() {
   const firstCase = document.querySelector('.case-item');
   if (firstCase) {
@@ -501,7 +504,7 @@ function initCaseSwiper() {
 function startCaseAutoPlay() {
   caseAutoTimer = setInterval(nextCaseSlide, caseConfig.speed);
 }
-// 案例轮播切换到下一张
+// 案例轮播切换下一张
 function nextCaseSlide() {
   const currentTransform = getCaseTransformX();
   const nextTransform = currentTransform - caseItemWidth;
@@ -510,15 +513,15 @@ function nextCaseSlide() {
     caseList.style.transition = 'none';
     caseList.style.transform = `translateX(0)`;
     setTimeout(() => {
-      caseList.style.transition = 'transform 0.3s ease-out';
+      caseList.style.transition = `${caseConfig.transition}s ease-out`;
       nextCaseSlide();
     }, 50);
   } else {
-    caseList.style.transition = 'transform 0.3s ease-out';
+    caseList.style.transition = `${caseConfig.transition}s ease-out`;
     caseList.style.transform = `translateX(${nextTransform}px)`;
   }
 }
-// 获取案例轮播当前transformX值
+// 获取案例轮播当前偏移
 function getCaseTransformX() {
   const transform = window.getComputedStyle(caseList).transform;
   return transform === 'none' ? 0 : parseFloat(transform.split(',')[4] || 0);
