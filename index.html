@@ -43,17 +43,13 @@ img{max-width:100%;height:auto;pointer-events:none}
 .about-text{flex:1;min-width:300px}
 .about-text h3{font-size:24px;color:var(--main-color);margin-bottom:20px}
 .about-text p{line-height:1.8;color:var(--text-gray);margin-bottom:15px}
-/* 诊所环境6张图轮播样式 - 核心修改 */
-.about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1);position:relative;height:400px;}
+/* 诊所环境6张图可拖动轮播样式 - 核心重构 */
+.about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1);position:relative;height:400px;cursor:grab;}
+.about-img:active{cursor:grabbing;}
 .clinic-swiper{width:100%;height:100%;overflow:hidden;position:relative;}
-.clinic-list{display:flex;width:100%;height:100%;animation:clinicScroll 22s linear infinite;}
+.clinic-list{display:flex;width:100%;height:100%;position:relative;transition:transform 0.3s ease-out;}
 .clinic-item{flex:0 0 100%;height:100%;}
 .clinic-item img{width:100%;height:100%;object-fit:cover;}
-.about-img:hover .clinic-list{animation-play-state:paused;}
-@keyframes clinicScroll {
-  0% {transform:translateX(0);}
-  100% {transform:translateX(-600%);}
-}
 /* 诊疗项目样式 */
 .projects{background:#f8f9fa}
 .grid{display:flex;flex-wrap:wrap;gap:24px}
@@ -72,9 +68,13 @@ img{max-width:100%;height:auto;pointer-events:none}
 .booking{background:#f8f9fa}
 .booking-wrapper{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start;}
 .booking-form{flex:1;min-width:300px;max-width:600px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
-.booking-wechat{flex:1;min-width:300px;max-width:400px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center;}
-/* 微信二维码专属样式 - 解除指针屏蔽 核心修改 */
+.booking-wechat{flex:1;min-width:300px;max-width:400px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center;position:relative;}
+/* 微信二维码专属样式 - 解除指针屏蔽+长按提示 */
 .wechat-qrcode{width:220px;height:220px;margin:0 auto 25px;border:8px solid #f0f0f0;border-radius:12px;padding:10px;background:#fff;box-shadow:0 0 15px rgba(0,0,0,0.08);pointer-events:auto;}
+/* 二维码长按提示样式 */
+.qrcode-tip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.7);color:#fff;padding:8px 16px;border-radius:8px;font-size:14px;z-index:10;opacity:0;visibility:hidden;transition:all 0.3s ease;pointer-events:none;white-space:nowrap;}
+.wechat-qrcode:hover + .qrcode-tip,
+.wechat-qrcode:active + .qrcode-tip{opacity:1;visibility:visible;}
 .wechat-title{font-size:22px;color:var(--main-color);margin-bottom:15px;font-weight:bold;}
 .wechat-desc{font-size:16px;color:var(--text-gray);line-height:1.8;margin-bottom:10px;}
 .wechat-tips{font-size:14px;color:#ff6b6b;font-weight:500;margin-top:20px;}
@@ -128,7 +128,7 @@ img{max-width:100%;height:auto;pointer-events:none}
   .banner h1{font-size:28px}
   .banner p{font-size:16px}
   .title{font-size:26px}
-  /* 诊所6张图轮播移动端适配 */
+  /* 诊所轮播移动端适配 */
   .about-img{height:300px;}
   .card-img{width:80px;height:80px}
   .grid{gap:16px;}
@@ -141,6 +141,7 @@ img{max-width:100%;height:auto;pointer-events:none}
   .booking-form, .booking-wechat{padding:30px 20px;}
   /* 二维码移动端适配 */
   .wechat-qrcode{width:180px;height:180px;pointer-events:auto;}
+  .qrcode-tip{font-size:12px;padding:6px 12px;}
 }
 </style>
 </head>
@@ -176,18 +177,20 @@ img{max-width:100%;height:auto;pointer-events:none}
         <p>我们拥有一支经验丰富的医师团队，引进先进的数字化诊疗设备，严格遵循国际医疗标准，为您提供安全、舒适的诊疗体验。</p>
         <p>从预防保健到复杂修复，从儿童齿科到成人正畸，我们覆盖全年龄段口腔健康需求，让您和家人都能拥有健康美丽的笑容。</p>
       </div>
-      <!-- 诊所环境6张图轮播 - HTML结构核心修改 -->
-      <div class="about-img">
+      <!-- 诊所环境6张图可拖动轮播 - HTML结构 -->
+      <div class="about-img" id="clinicSwiper">
         <div class="clinic-swiper">
-          <div class="clinic-list">
+          <div class="clinic-list" id="clinicList">
             <div class="clinic-item"><img src="images/clinic1.jpg" alt="诊所环境1"></div>
             <div class="clinic-item"><img src="images/clinic2.jpg" alt="诊所环境2"></div>
             <div class="clinic-item"><img src="images/clinic3.jpg" alt="诊所环境3"></div>
             <div class="clinic-item"><img src="images/clinic4.jpg" alt="诊所环境4"></div>
             <div class="clinic-item"><img src="images/clinic5.jpg" alt="诊所环境5"></div>
             <div class="clinic-item"><img src="images/clinic6.jpg" alt="诊所环境6"></div>
-            <!-- 无缝衔接：复制第一张图 -->
+            <!-- 无缝衔接：复制前3张图 -->
             <div class="clinic-item"><img src="images/clinic1.jpg" alt="诊所环境1"></div>
+            <div class="clinic-item"><img src="images/clinic2.jpg" alt="诊所环境2"></div>
+            <div class="clinic-item"><img src="images/clinic3.jpg" alt="诊所环境3"></div>
           </div>
         </div>
       </div>
@@ -304,6 +307,8 @@ img{max-width:100%;height:auto;pointer-events:none}
         <p class="wechat-desc">扫描下方二维码，添加客服微信</p>
         <p class="wechat-desc">发送【预约项目+姓名+电话】</p>
         <img src="images/wechat-qrcode.jpg" alt="微信预约二维码" class="wechat-qrcode">
+        <!-- 二维码长按提示 -->
+        <div class="qrcode-tip">长按图片识别二维码加好友</div>
         <p class="wechat-tips">温馨提示：添加时请备注“口腔预约”</p>
       </div>
     </div>
@@ -389,11 +394,11 @@ document.body.addEventListener('click', function() {
 menu.addEventListener('click', function(e) {
   e.stopPropagation();
 });
-// 保留全局禁止右键菜单核心代码 - 未做任何修改
+// 保留全局禁止右键菜单核心代码
 document.addEventListener('contextmenu', function(e) {
   e.preventDefault();
 });
-// 保留全局禁止鼠标右键按下事件 - 未做任何修改
+// 保留全局禁止鼠标右键按下事件
 document.addEventListener('mousedown', function(e) {
   if(e.button === 2) {
     e.preventDefault();
@@ -402,25 +407,133 @@ document.addEventListener('mousedown', function(e) {
 // 核心新增：单独解除微信二维码的右键/长按限制 支持微信内识别
 const qrcodeImg = document.querySelector('.wechat-qrcode');
 if (qrcodeImg) {
-  // 解除二维码右键禁止
   qrcodeImg.addEventListener('contextmenu', function(e) {
-    e.stopPropagation(); // 阻止事件冒泡，跳过全局禁止
+    e.stopPropagation();
   });
-  // 解除二维码鼠标右键按下禁止
   qrcodeImg.addEventListener('mousedown', function(e) {
     if (e.button === 2) {
-      e.stopPropagation(); // 阻止事件冒泡，跳过全局禁止
+      e.stopPropagation();
     }
   });
-  // 兼容微信内移动端触摸长按识别
   qrcodeImg.addEventListener('touchstart', function(e) {
-    e.stopPropagation(); // 阻止触摸事件被全局屏蔽
+    e.stopPropagation();
   });
-  // 兼容微信内移动端触摸结束事件
   qrcodeImg.addEventListener('touchend', function(e) {
     e.stopPropagation();
   });
 }
+
+// 诊所6张图轮播核心交互：鼠标/触屏拖动+拖动加速+自动播放
+const clinicSwiper = document.getElementById('clinicSwiper');
+const clinicList = document.getElementById('clinicList');
+let startX = 0;
+let moveX = 0;
+let currentX = 0;
+let autoPlayTimer = null;
+let isDragging = false;
+// 轮播配置
+const config = {
+  speed: 3000, // 自动播放基础速度
+  speedFast: 500, // 拖动时加速播放速度
+  imgCount: 6, // 实际图片数量
+  imgWidth: 100 // 单张图片宽度百分比
+};
+
+// 初始化自动播放
+initAutoPlay();
+
+// 鼠标按下/触屏开始
+clinicSwiper.addEventListener('mousedown', startDrag);
+clinicSwiper.addEventListener('touchstart', startDrag, {passive: true});
+// 鼠标移动/触屏滑动
+document.addEventListener('mousemove', dragMove);
+document.addEventListener('touchmove', dragMove, {passive: true});
+// 鼠标松开/触屏结束/离开
+document.addEventListener('mouseup', endDrag);
+document.addEventListener('touchend', endDrag);
+clinicSwiper.addEventListener('mouseleave', endDrag);
+
+// 开始拖动
+function startDrag(e) {
+  isDragging = true;
+  clearInterval(autoPlayTimer); // 拖动时停止自动播放
+  startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+  currentX = getTransformX();
+  clinicList.style.transition = 'none'; // 取消过渡，实现顺滑拖动
+}
+
+// 拖动中
+function dragMove(e) {
+  if (!isDragging) return;
+  moveX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+  const diffX = (startX - moveX) * 1.2; // 拖动加速度
+  setTransformX(currentX - diffX);
+}
+
+// 结束拖动
+function endDrag() {
+  if (!isDragging) return;
+  isDragging = false;
+  let currentTransform = getTransformX();
+  // 计算当前所在图片索引
+  const index = Math.round(Math.abs(currentTransform) / (config.imgWidth * 100 / window.innerWidth * window.innerWidth));
+  // 定位到最近的图片
+  setTransformX(-index * config.imgWidth);
+  clinicList.style.transition = 'transform 0.3s ease-out';
+  // 重新开始自动播放（加速）
+  clearInterval(autoPlayTimer);
+  autoPlayTimer = setInterval(autoPlay, config.speedFast);
+  // 3秒后恢复基础自动播放速度
+  setTimeout(() => {
+    clearInterval(autoPlayTimer);
+    initAutoPlay();
+  }, 3000);
+  // 无缝轮播复位
+  seamlessReset();
+}
+
+// 获取当前transformX值
+function getTransformX() {
+  const transform = window.getComputedStyle(clinicList).transform;
+  return transform === 'none' ? 0 : parseFloat(transform.split(',')[4] || 0);
+}
+
+// 设置transformX值
+function setTransformX(x) {
+  clinicList.style.transform = `translateX(${x}px)`;
+}
+
+// 初始化自动播放
+function initAutoPlay() {
+  autoPlayTimer = setInterval(autoPlay, config.speed);
+}
+
+// 自动播放逻辑
+function autoPlay() {
+  let currentTransform = getTransformX();
+  currentTransform -= config.imgWidth;
+  setTransformX(currentTransform);
+  seamlessReset();
+}
+
+// 无缝轮播复位
+function seamlessReset() {
+  const maxTransform = -config.imgCount * config.imgWidth;
+  const currentTransform = getTransformX();
+  // 滑到复制的图片区域，瞬间复位到初始位置
+  if (currentTransform <= maxTransform) {
+    clinicList.style.transition = 'none';
+    setTransformX(0);
+  }
+}
+
+// 窗口大小变化时重置
+window.addEventListener('resize', () => {
+  clearInterval(autoPlayTimer);
+  clinicList.style.transition = 'none';
+  setTransformX(0);
+  initAutoPlay();
+});
 </script>
 </body>
 </html>
