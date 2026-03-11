@@ -1,113 +1,71 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>陕西思维口腔西安雁塔店 - 专业牙科诊疗</title>
-<!-- flexslider 轮播必需 -->
-<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/flexslider/2.7.2/flexslider.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;overflow-x:hidden;font-family:"Microsoft YaHei",sans-serif;color:#333;background:#f8f9fa}
-a{text-decoration:none;color:inherit}
-img{max-width:100%;height:auto}
-
-/* 主色：深天蓝 #00BFFF */
+html,body{width:100%;overflow-x:hidden;font-family:"Microsoft YaHei",sans-serif;color:#333;background:#f8f9fa;scroll-behavior:smooth}
+a{text-decoration:none;color:inherit;display:inline-block;cursor:pointer}
+img{max-width:100%;height:auto;pointer-events:none}
 :root {
   --main-color: #00BFFF;
   --main-light: #33CCFF;
   --text-dark: #222;
   --text-gray: #555;
 }
-
-/* 轮播图高度 */
-.flexslider {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-}
-.flexslider .slides li {
-  height: 500px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-@media (max-width:768px){
-  .flexslider .slides li {
-    height: 300px;
-  }
-}
-
-/* 通用容器 */
 .container{max-width:1200px;margin:0 auto;padding:0 20px}
-.section{padding:60px 0}
+.section{padding:60px 0;position:relative;z-index:1}
 .title{text-align:center;font-size:32px;margin-bottom:40px;color:var(--text-dark)}
 .subtitle{text-align:center;font-size:18px;color:var(--text-gray);margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
-
-/* 导航 */
-.header{position:sticky;top:0;z-index:999;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
-.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 20px}
-.logo-img{height:50px}
-.menu{display:flex;gap:32px}
-.menu a{font-size:16px;color:var(--text-dark)}
-.menu a:hover{color:var(--main-color)}
-.menubtn{display:none;background:none;border:none;font-size:26px}
-
-/* Banner 文字层 */
-.banner-text{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  color: #fff;
-  text-align: center;
-  width: 90%;
-  z-index: 2;
-}
-.banner-text h1{
-  font-size: 38px;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-}
-.banner-text p{
-  font-size: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-}
-@media (max-width:768px){
-  .banner-text h1{font-size:28px}
-  .banner-text p{font-size:16px}
-}
-
-/* 关于我们 */
+/* 核心：顶部固定布局（左上角长条Logo+右上角菜单按钮） */
+.header{position:fixed;top:0;left:0;right:0;z-index:99999;padding:20px;display:flex;justify-content:space-between;align-items:center;}
+/* 左上角悬浮长条Logo：圆角+渐变+文字一体化 */
+.logo-bar{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--main-color),var(--main-light));color:#fff;padding:12px 24px;border-radius:16px;box-shadow:0 3px 15px rgba(0,191,255,0.3);z-index:99999;position:relative;}
+/* 长条Logo文字样式 */
+.logo-text{font-size:20px;font-weight:bold;letter-spacing:1px;}
+.logo-slogan{font-size:12px;opacity:0.9;margin-top:2px;}
+/* 右上角三道杠按钮（保持原有风格，视觉统一） */
+.menubtn{display:flex;background:var(--main-color);color:#fff;border-radius:50%;width:50px;height:50px;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 2px 10px rgba(0,191,255,0.3);border:none;z-index:99999;position:relative;}
+/* 竖条菜单：按钮正下方 */
+.menu{display:none;flex-direction:column;position:absolute;top:90px;right:20px;width:200px;background:#fff;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:15px 0;gap:2px;z-index:99998;}
+.menu.show{display:flex;}
+.menu a{color:var(--text-dark);font-size:15px;padding:10px 20px;text-align:left;width:100%;}
+.menu a:hover{color:var(--main-color);background:rgba(0,191,255,0.1);}
+/* banner区顶部加padding，避免被固定元素遮挡 */
+.banner{background:linear-gradient(135deg,var(--main-color),var(--main-light));color:#fff;text-align:center;padding:140px 20px 80px;position:relative;z-index:1;margin-top:0;}
+.banner h1{font-size:38px;margin-bottom:20px}
+.banner p{font-size:20px;max-width:800px;margin:0 auto;line-height:1.6}
 .about{background:#fff}
 .about-content{display:flex;flex-wrap:wrap;gap:40px;align-items:center}
 .about-text{flex:1;min-width:300px}
 .about-text h3{font-size:24px;color:var(--main-color);margin-bottom:20px}
 .about-text p{line-height:1.8;color:var(--text-gray);margin-bottom:15px}
 .about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1)}
-
-/* 诊疗项目 */
 .projects{background:#f8f9fa}
 .grid{display:flex;flex-wrap:wrap;gap:24px}
 .card{flex:1;min-width:260px;background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
+.card-img{width:100px;height:100px;object-fit:contain;margin:0 auto 20px;filter:drop-shadow(0 2px 5px rgba(0,191,255,0.2))}
 .card h3{margin-bottom:12px;color:var(--main-color);font-size:20px}
 .card p{line-height:1.6;color:var(--text-gray)}
-
-/* 医师团队 */
 .doctors{background:#fff}
 .doctor-card{flex:1;min-width:250px;background:#fff;padding:24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
 .doctor-avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 16px;border:4px solid var(--main-color)}
 .doctor-card h3{font-size:20px;color:var(--text-dark);margin-bottom:8px}
 .doctor-card .title{font-size:16px;color:var(--main-color);margin-bottom:12px}
 .doctor-card p{line-height:1.6;color:var(--text-gray);font-size:14px}
-
-/* 预约表单 */
+/* 预约模块样式 */
 .booking{background:#f8f9fa}
-.booking-form{max-width:600px;margin:0 auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
+.booking-wrapper{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start;}
+.booking-form{flex:1;min-width:300px;max-width:600px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
+.booking-wechat{flex:1;min-width:300px;max-width:400px;background:#fff;padding:40px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center;}
+.wechat-qrcode{width:220px;height:220px;margin:0 auto 25px;border:8px solid #f0f0f0;border-radius:12px;padding:10px;background:#fff;box-shadow:0 0 15px rgba(0,0,0,0.08);}
+.wechat-title{font-size:22px;color:var(--main-color);margin-bottom:15px;font-weight:bold;}
+.wechat-desc{font-size:16px;color:var(--text-gray);line-height:1.8;margin-bottom:10px;}
+.wechat-tips{font-size:14px;color:#ff6b6b;font-weight:500;margin-top:20px;}
+/* 表单通用样式 */
 .form-group{margin-bottom:20px}
 .form-group label{display:block;margin-bottom:8px;color:var(--text-dark);font-weight:500}
 .form-group input,
@@ -118,197 +76,221 @@ img{max-width:100%;height:auto}
 .form-group textarea:focus{outline:none;border-color:var(--main-color)}
 .submit-btn{width:100%;padding:14px;background:var(--main-color);color:#fff;border:none;border-radius:6px;font-size:18px;cursor:pointer}
 .submit-btn:hover{background:var(--main-light)}
-
-/* 联系我们 */
 .contact{background:#fff}
 .contact-info{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;text-align:center;margin-bottom:30px}
 .contact-item{flex:1;min-width:200px}
 .contact-item h3{font-size:18px;color:var(--main-color);margin-bottom:10px}
 .contact-item p{font-size:16px;color:var(--text-gray)}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
-.map-link{color:var(--main-color);text-decoration:underline;cursor:pointer}
-
-/* 底部 */
-.footer{background:var(--main-color);color:#fff;text-align:center;padding:40px 20px}
+.map-link{color:var(--main-color);text-decoration:underline;cursor:pointer;}
+/* 案例轮播样式 */
+.case{background:#fff;padding:60px 0;position:relative;z-index:1}
+.case-swiper{width:100%;overflow:hidden;position:relative;height:280px;margin:0 auto;}
+.case-list{display:flex;animation:scroll 20s linear infinite;align-items:center;height:100%;}
+.case-item{flex:0 0 280px;margin:0 15px;height:220px;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.08);}
+.case-item img{width:100%;height:100%;object-fit:cover;}
+@keyframes scroll {
+  0% {transform:translateX(0);}
+  100% {transform:translateX(-50%);}
+}
+.case-swiper:hover .case-list{animation-play-state:paused;}
+.case-swiper::before,
+.case-swiper::after{content:'';position:absolute;top:0;width:60px;height:100%;z-index:2;pointer-events:none;}
+.case-swiper::before{left:0;background:linear-gradient(to right,#fff,transparent);}
+.case-swiper::after{right:0;background:linear-gradient(to left,#fff,transparent);}
+/* 底部footer */
+.footer{background:var(--main-color);color:#fff;text-align:center;padding:40px 20px;margin-top:0}
 .footer p{line-height:1.8;margin:6px 0}
-
-/* 手机适配 */
+/* 移动端适配 */
 @media(max-width:768px){
-.menu{display:none}
-.menubtn{display:block}
-.title{font-size:26px}
+  .header{padding:15px 15px;}
+  .logo-bar{padding:10px 18px;gap:8px;}
+  .logo-text{font-size:16px;}
+  .logo-slogan{font-size:10px;}
+  .menubtn{width:45px;height:45px;font-size:22px;}
+  .menu{width:180px;top:80px;right:15px;}
+  .menu a{font-size:14px;padding:8px 18px;}
+  .banner{padding:120px 20px 60px;}
+  .banner h1{font-size:28px}
+  .banner p{font-size:16px}
+  .title{font-size:26px}
+  .card-img{width:80px;height:80px}
+  .grid{gap:16px;}
+  .card{padding:24px 16px;}
+  .case-swiper{height:220px;}
+  .case-item{flex:0 0 200px;height:160px;margin:0 10px;}
+  .case-swiper::before,
+  .case-swiper::after{width:30px;}
+  .booking-wrapper{gap:20px;}
+  .booking-form, .booking-wechat{padding:30px 20px;}
+  .wechat-qrcode{width:180px;height:180px;}
 }
 </style>
 </head>
 <body>
-
-<!-- 导航 -->
+<!-- 顶部布局：左上角长条Logo + 右上角菜单按钮 -->
 <div class="header">
-  <div class="nav container">
-    < img src="https://picsum.photos/seed/logo/200/100" alt="思维口腔" class="logo-img">
-    <div class="menu">
-      首页
-      关于我们
-      诊疗项目
-      医师团队
-      在线预约
-      联系我们
-    </div>
-    <button class="menubtn">☰</button>
+  <!-- 左上角悬浮长条Logo（圆角+渐变+文字） -->
+  <div class="logo-bar">
+    <div class="logo-text">思维口腔</div>
+    <div class="logo-slogan">守护口腔健康</div>
+  </div>
+  <!-- 右上角菜单按钮 -->
+  <button class="menubtn" id="menubtn">☰</button>
+  <!-- 竖条菜单 -->
+  <div class="menu" id="menu">
+    <a href="#home">首页</a>
+    <a href="#about">关于我们</a>
+    <a href="#projects">诊疗项目</a>
+    <a href="#doctors">医师团队</a>
+    <a href="#booking">在线预约</a>
+    <a href="#contact">联系我们</a>
+    <a href="#case">诊疗案例</a>
   </div>
 </div>
 
-<!-- 你要的轮播图 已融合进来 -->
-<aside id="fh5co-hero" style="min-height: auto;" id="home"> 
-  <div class="flexslider"> 
-    <ul class="slides"> 
-      <li style="background-image: url(https://picsum.photos/seed/dental1/1920/1080);">
-        <div class="banner-text">
-          <h1>陕西思维口腔西安雁塔店</h1>
-          <p>专注数字化种植、隐形矫正、儿童齿科、美学修复、牙周治疗，用心守护您的口腔健康</p >
-        </div>
-      </li>
-      <li style="background-image: url(https://picsum.photos/seed/dental2/1920/1080);">
-        <div class="banner-text">
-          <h1>专业种植 · 品质修复</h1>
-          <p>先进设备、专业医师，给您安心舒适的诊疗体验</p >
-        </div>
-      </li>
-      <li style="background-image: url(https://picsum.photos/seed/dental3/1920/1080);">
-        <div class="banner-text">
-          <h1>隐形矫正 · 自信笑容</h1>
-          <p>成人儿童牙齿矫正，透明美观，不影响生活与社交</p >
-        </div>
-      </li>
-      <li style="background-image: url(https://picsum.photos/seed/dental4/1920/1080);">
-        <div class="banner-text">
-          <h1>儿童齿科 · 温柔呵护</h1>
-          <p>预防蛀牙、早期矫正，守护孩子每一颗牙齿</p >
-        </div>
-      </li>
-    </ul>
-  </div>
-</aside>
+<div id="home" class="banner">
+  <h1>陕西思维口腔西安雁塔店</h1>
+  <p>专注数字化种植、隐形矫正、金属托槽矫正、儿童齿科、美学修复、牙周治疗，用心守护您的口腔健康</p>
+</div>
 
-<!-- 关于我们 -->
 <section id="about" class="section about">
   <div class="container">
     <h2 class="title">关于我们</h2>
-    <p class="subtitle">陕西思维口腔是一家专业口腔诊疗机构，致力于为每一位患者提供高品质、人性化的口腔医疗服务</p >
+    <p class="subtitle">陕西思维口腔是一家专业口腔诊疗机构，致力于为每一位患者提供高品质、人性化的口腔医疗服务</p>
     <div class="about-content">
       <div class="about-text">
         <h3>专业诊疗，品质保障</h3>
-        <p>我们拥有一支经验丰富的医师团队，引进先进的数字化诊疗设备，严格遵循国际医疗标准，为您提供安全、舒适的诊疗体验。</p >
-        <p>从预防保健到复杂修复，从儿童齿科到成人正畸，我们覆盖全年龄段口腔健康需求，让您和家人都能拥有健康美丽的笑容。</p >
+        <p>我们拥有一支经验丰富的医师团队，引进先进的数字化诊疗设备，严格遵循国际医疗标准，为您提供安全、舒适的诊疗体验。</p>
+        <p>从预防保健到复杂修复，从儿童齿科到成人正畸，我们覆盖全年龄段口腔健康需求，让您和家人都能拥有健康美丽的笑容。</p>
       </div>
       <div class="about-img">
-        < img src="https://picsum.photos/seed/clinic/600/400" alt="诊所环境">
+        <img src="images/clinic.jpg" alt="诊所环境">
       </div>
     </div>
   </div>
 </section>
 
-<!-- 诊疗项目 -->
 <section id="projects" class="section projects">
   <div class="container">
     <h2 class="title">核心诊疗项目</h2>
     <div class="grid">
       <div class="card">
+        <img src="images/project1.jpg" alt="数字化种植牙" class="card-img">
         <h3>数字化种植牙</h3>
-        <p>精准种植、稳固耐用、恢复咀嚼功能，媲美真牙</p >
+        <p>精准种植、稳固耐用、恢复咀嚼功能，媲美真牙</p>
       </div>
       <div class="card">
+        <img src="images/project2.jpg" alt="隐形矫正" class="card-img">
         <h3>隐形矫正</h3>
-        <p>透明舒适、美观隐形，轻松矫正不齐牙齿</p >
+        <p>透明舒适、美观隐形，轻松矫正不齐牙齿</p>
       </div>
       <div class="card">
+        <img src="images/project7.jpg" alt="金属托槽矫正" class="card-img">
+        <h3>金属托槽矫正</h3>
+        <p>经典高效、性价比高，适用各类牙齿畸形矫正</p>
+      </div>
+      <div class="card">
+        <img src="images/project3.jpg" alt="美学修复" class="card-img">
         <h3>美学修复</h3>
-        <p>牙齿美白、全瓷贴面、全瓷牙，提升笑容自信</p >
+        <p>牙齿美白、全瓷贴面、全瓷牙，提升笑容自信</p>
       </div>
       <div class="card">
+        <img src="images/project4.jpg" alt="儿童齿科" class="card-img">
         <h3>儿童齿科</h3>
-        <p>温柔诊疗、早期矫正、预防蛀牙，守护孩子成长</p >
+        <p>温柔诊疗、早期矫正、预防蛀牙，守护孩子成长</p>
       </div>
       <div class="card">
+        <img src="images/project5.jpg" alt="牙周治疗" class="card-img">
         <h3>牙周治疗</h3>
-        <p>洗牙、刮治、牙周护理，解决牙龈出血口臭</p >
+        <p>洗牙、刮治、牙周护理，解决牙龈出血口臭</p>
       </div>
       <div class="card">
+        <img src="images/project6.jpg" alt="根管治疗" class="card-img">
         <h3>根管治疗</h3>
-        <p>保留坏牙、缓解牙痛，快速修复受损牙髓</p >
+        <p>保留坏牙、缓解牙痛，快速修复受损牙髓</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 医师团队 -->
 <section id="doctors" class="section doctors">
   <div class="container">
     <h2 class="title">医师团队</h2>
-    <p class="subtitle">汇聚资深口腔专家，为您提供专业诊疗方案</p >
+    <p class="subtitle">汇聚资深口腔专家，为您提供专业诊疗方案</p>
     <div class="grid">
       <div class="doctor-card">
-        < img src="https://picsum.photos/seed/doctor1/200/200" alt="张医生" class="doctor-avatar">
+        <img src="images/doctor1.jpg" alt="张医生" class="doctor-avatar">
         <h3>张医生</h3>
-        <p class="title">主任医师 | 种植专家</p >
-        <p>15年口腔种植经验，擅长复杂种植修复，已完成千余例成功案例</p >
+        <p class="title">主任医师 | 种植专家</p>
+        <p>15年口腔种植经验，擅长复杂种植修复，已完成千余例成功案例</p>
       </div>
       <div class="doctor-card">
-        < img src="https://picsum.photos/seed/doctor2/200/200" alt="李医生" class="doctor-avatar">
+        <img src="images/doctor2.jpg" alt="李医生" class="doctor-avatar">
         <h3>李医生</h3>
-        <p class="title">主治医师 | 正畸专家</p >
-        <p>专注隐形矫正技术，擅长儿童及成人各类错颌畸形矫治</p >
+        <p class="title">主治医师 | 正畸专家</p>
+        <p>专注隐形/金属托槽矫正技术，擅长儿童及成人各类错颌畸形矫治</p>
       </div>
       <div class="doctor-card">
-        < img src="https://picsum.photos/seed/doctor3/200/200" alt="王医生" class="doctor-avatar">
+        <img src="images/doctor3.jpg" alt="王医生" class="doctor-avatar">
         <h3>王医生</h3>
-        <p class="title">主治医师 | 儿牙专家</p >
-        <p>温柔耐心，擅长儿童行为管理及早期咬合诱导，深受小朋友喜爱</p >
+        <p class="title">主治医师 | 儿牙专家</p>
+        <p>温柔耐心，擅长儿童行为管理及早期咬合诱导，深受小朋友喜爱</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 在线预约 -->
 <section id="booking" class="section booking">
   <div class="container">
     <h2 class="title">在线预约</h2>
-    <p class="subtitle">填写以下信息，我们将尽快为您安排就诊</p >
-    <form class="booking-form">
-      <div class="form-group">
-        <label>姓名</label>
-        <input type="text" placeholder="请输入您的姓名" required>
+    <p class="subtitle">两种方式，便捷预约，我们将尽快与您联系</p>
+    
+    <div class="booking-wrapper">
+      <form class="booking-form">
+        <div class="form-group">
+          <label>姓名</label>
+          <input type="text" placeholder="请输入您的姓名" required>
+        </div>
+        <div class="form-group">
+          <label>手机号码</label>
+          <input type="tel" placeholder="请输入您的手机号码" required>
+        </div>
+        <div class="form-group">
+          <label>预约项目</label>
+          <select required>
+            <option value="">请选择预约项目</option>
+            <option value="种植">数字化种植牙</option>
+            <option value="yinxing">隐形矫正</option>
+            <option value="jinshu">金属托槽矫正</option>
+            <option value="xiufu">美学修复</option>
+            <option value="erya">儿童齿科</option>
+            <option value="zhouyang">牙周治疗</option>
+            <option value="genguan">根管治疗</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>预约时间</label>
+          <input type="date" required>
+        </div>
+        <div class="form-group">
+          <label>备注</label>
+          <textarea rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">提交预约</button>
+      </form>
+
+      <div class="booking-wechat">
+        <h3 class="wechat-title">微信扫码 立即预约</h3>
+        <p class="wechat-desc">扫描下方二维码，添加客服微信</p>
+        <p class="wechat-desc">发送【预约项目+姓名+电话】</p>
+        <img src="images/wechat-qrcode.png" alt="微信预约二维码" class="wechat-qrcode">
+        <p class="wechat-tips">温馨提示：添加时请备注“口腔预约”</p>
       </div>
-      <div class="form-group">
-        <label>手机号码</label>
-        <input type="tel" placeholder="请输入您的手机号码" required>
-      </div>
-      <div class="form-group">
-        <label>预约项目</label>
-        <select required>
-          <option value="">请选择预约项目</option>
-          <option value="种植">数字化种植牙</option>
-          <option value="矫正">隐形矫正</option>
-          <option value="修复">美学修复</option>
-          <option value="儿牙">儿童齿科</option>
-          <option value="牙周">牙周治疗</option>
-          <option value="根管">根管治疗</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>预约时间</label>
-        <input type="date" required>
-      </div>
-      <div class="form-group">
-        <label>备注</label>
-        <textarea rows="4" placeholder="请输入您的特殊需求或问题"></textarea>
-      </div>
-      <button type="submit" class="submit-btn">提交预约</button>
-    </form>
+    </div>
   </div>
 </section>
 
-<!-- 联系我们 -->
 <section id="contact" class="section contact">
   <div class="container">
     <h2 class="title">联系我们</h2>
@@ -319,43 +301,83 @@ img{max-width:100%;height:auto}
       </div>
       <div class="contact-item">
         <h3>📍 诊所地址</h3>
-        <p class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</p >
+        <p><span class="map-link" onclick="goToMap()">西安市雁塔区丈八东路金泰假日花城南门东侧第一商铺（点击导航）</span></p>
       </div>
       <div class="contact-item">
         <h3>⏰ 营业时间</h3>
-        <p>09:00-21:00（无假日医院）</p >
+        <p>09:00-21:00</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 底部 -->
+<section id="case" class="case">
+  <div class="container">
+    <h2 class="title">诊疗案例展示</h2>
+    <p class="subtitle">真实诊疗案例参考，见证牙齿蜕变过程</p>
+    <div class="case-swiper">
+      <div class="case-list">
+        <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
+        <div class="case-item"><img src="images/case2.jpg" alt="隐形矫正案例"></div>
+        <div class="case-item"><img src="images/case3.jpg" alt="金属托槽矫正案例"></div>
+        <div class="case-item"><img src="images/case4.jpg" alt="牙齿美白案例"></div>
+        <div class="case-item"><img src="images/case5.jpg" alt="儿童齿科案例"></div>
+        <div class="case-item"><img src="images/case6.jpg" alt="牙周治疗案例"></div>
+        <div class="case-item"><img src="images/case7.jpg" alt="全瓷贴面案例"></div>
+        <div class="case-item"><img src="images/case8.jpg" alt="根管治疗案例"></div>
+        <!-- 无缝滚动复制 -->
+        <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
+        <div class="case-item"><img src="images/case2.jpg" alt="隐形矫正案例"></div>
+        <div class="case-item"><img src="images/case3.jpg" alt="金属托槽矫正案例"></div>
+        <div class="case-item"><img src="images/case4.jpg" alt="牙齿美白案例"></div>
+        <div class="case-item"><img src="images/case5.jpg" alt="儿童齿科案例"></div>
+        <div class="case-item"><img src="images/case6.jpg" alt="牙周治疗案例"></div>
+        <div class="case-item"><img src="images/case7.jpg" alt="全瓷贴面案例"></div>
+        <div class="case-item"><img src="images/case8.jpg" alt="根管治疗案例"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="footer">
-  <p>陕西思维口腔西安雁塔店</p >
-  <p>官网：www.sweetdental.cn</p >
-  <p>© 2026 版权所有</p >
+  <p>陕西思维口腔西安雁塔店</p>
+  <p>官网：www.sweetdental.cn</p>
+  <p>© 2026 版权所有</p>
 </div>
 
-<!-- 轮播必需JS -->
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/flexslider/2.7.2/jquery.flexslider.min.js"></script>
 <script>
-$(window).load(function(){
-  $('.flexslider').flexslider({
-    animation: "fade",
-    pauseOnAction: true,
-    slideshowSpeed: 4000,
-    animationSpeed: 600,
-    controlNav: true,
-    directionNav: false
+// 高德地图导航
+function goToMap() {
+  window.open("https://surl.amap.com/5IMG8ZYd3Kd", "_blank", "noopener noreferrer");
+}
+
+// 菜单交互
+const menubtn = document.getElementById('menubtn');
+const menu = document.getElementById('menu');
+menubtn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  menu.classList.toggle('show');
+  this.innerHTML = menu.classList.contains('show') ? '×' : '☰';
+});
+
+const menuA = menu.querySelectorAll('a');
+menuA.forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.stopPropagation();
+    menu.classList.remove('show');
+    menubtn.innerHTML = '☰';
   });
 });
 
-// 点击导航（微信/浏览器都不报错）
-function goToMap() {
-  window.open("https://map.baidu.com/s?wd=陕西思维口腔西安雁塔金泰店", "_blank");
-}
+document.body.addEventListener('click', function() {
+  if(menu.classList.contains('show')) {
+    menu.classList.remove('show');
+    menubtn.innerHTML = '☰';
+  }
+});
+menu.addEventListener('click', function(e) {
+  e.stopPropagation();
+});
 </script>
-
 </body>
 </html>
