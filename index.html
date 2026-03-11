@@ -148,12 +148,10 @@ img{max-width:100%;height:auto;pointer-events:none}
     <a href="#case">诊疗案例</a>
   </div>
 </div>
-
 <div id="home" class="banner">
   <h1>陕西思维口腔西安雁塔店</h1>
   <p>专注数字化种植、隐形矫正、金属托槽矫正、儿童齿科、美学修复、牙周治疗，用心守护您的口腔健康</p>
 </div>
-
 <section id="about" class="section about">
   <div class="container">
     <h2 class="title">关于我们</h2>
@@ -170,7 +168,6 @@ img{max-width:100%;height:auto;pointer-events:none}
     </div>
   </div>
 </section>
-
 <section id="projects" class="section projects">
   <div class="container">
     <h2 class="title">核心诊疗项目</h2>
@@ -213,7 +210,6 @@ img{max-width:100%;height:auto;pointer-events:none}
     </div>
   </div>
 </section>
-
 <section id="doctors" class="section doctors">
   <div class="container">
     <h2 class="title">医师团队</h2>
@@ -240,7 +236,6 @@ img{max-width:100%;height:auto;pointer-events:none}
     </div>
   </div>
 </section>
-
 <section id="booking" class="section booking">
   <div class="container">
     <h2 class="title">在线预约</h2>
@@ -279,7 +274,6 @@ img{max-width:100%;height:auto;pointer-events:none}
         </div>
         <button type="submit" class="submit-btn">提交预约</button>
       </form>
-
       <div class="booking-wechat">
         <h3 class="wechat-title">微信扫码 立即预约</h3>
         <p class="wechat-desc">扫描下方二维码，添加客服微信</p>
@@ -290,7 +284,6 @@ img{max-width:100%;height:auto;pointer-events:none}
     </div>
   </div>
 </section>
-
 <section id="contact" class="section contact">
   <div class="container">
     <h2 class="title">联系我们</h2>
@@ -310,7 +303,6 @@ img{max-width:100%;height:auto;pointer-events:none}
     </div>
   </div>
 </section>
-
 <section id="case" class="case">
   <div class="container">
     <h2 class="title">诊疗案例展示</h2>
@@ -338,19 +330,16 @@ img{max-width:100%;height:auto;pointer-events:none}
     </div>
   </div>
 </section>
-
 <div class="footer">
   <p>陕西思维口腔西安雁塔店</p>
   <p>官网：www.sweetdental.cn</p>
   <p>© 2026 版权所有</p>
 </div>
-
 <script>
 // 高德地图导航
 function goToMap() {
   window.open("https://surl.amap.com/5IMG8ZYd3Kd", "_blank", "noopener noreferrer");
 }
-
 // 菜单交互
 const menubtn = document.getElementById('menubtn');
 const menu = document.getElementById('menu');
@@ -359,7 +348,6 @@ menubtn.addEventListener('click', function(e) {
   menu.classList.toggle('show');
   this.innerHTML = menu.classList.contains('show') ? '×' : '☰';
 });
-
 const menuA = menu.querySelectorAll('a');
 menuA.forEach(item => {
   item.addEventListener('click', function(e) {
@@ -368,7 +356,6 @@ menuA.forEach(item => {
     menubtn.innerHTML = '☰';
   });
 });
-
 document.body.addEventListener('click', function() {
   if(menu.classList.contains('show')) {
     menu.classList.remove('show');
@@ -377,6 +364,16 @@ document.body.addEventListener('click', function() {
 });
 menu.addEventListener('click', function(e) {
   e.stopPropagation();
+});
+// 禁止右键菜单核心代码
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+// 兼容补充：禁止鼠标右键按下事件
+document.addEventListener('mousedown', function(e) {
+  if(e.button === 2) {
+    e.preventDefault();
+  }
 });
 </script>
 </body>
