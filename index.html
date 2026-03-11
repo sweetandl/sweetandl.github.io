@@ -43,18 +43,19 @@ img{max-width:100%;height:auto;pointer-events:none}
 .about-text{flex:1;min-width:300px}
 .about-text h3{font-size:24px;color:var(--main-color);margin-bottom:20px}
 .about-text p{line-height:1.8;color:var(--text-gray);margin-bottom:15px}
-/* 诊所环境6张图可拖动轮播样式 - 速度保留原有 */
-.about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1);position:relative;height:400px;cursor:grab;}
+/* 诊所环境6张图轮播样式 - 新增点击切图，速度保留原有 */
+.about-img{flex:1;min-width:300px;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px rgba(0,0,0,0.1);position:relative;height:400px;cursor:pointer;}
 .about-img:active{cursor:grabbing;}
 .clinic-swiper{width:100%;height:100%;overflow:hidden;position:relative;}
 .clinic-list{display:flex;width:100%;height:100%;position:relative;transition:transform 0.3s ease-out;}
 .clinic-item{flex:0 0 100%;height:100%;}
 .clinic-item img{width:100%;height:100%;object-fit:cover;}
-/* 诊疗项目样式 */
+/* 诊疗项目样式 - 图片放大修改 */
 .projects{background:#f8f9fa}
 .grid{display:flex;flex-wrap:wrap;gap:24px}
 .card{flex:1;min-width:260px;background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.05);text-align:center}
-.card-img{width:100px;height:100px;object-fit:contain;margin:0 auto 20px;filter:drop-shadow(0 2px 5px rgba(0,191,255,0.2))}
+/* 诊疗项目图片放大：从100px改为140px，保持比例 */
+.card-img{width:140px;height:140px;object-fit:contain;margin:0 auto 20px;filter:drop-shadow(0 2px 5px rgba(0,191,255,0.2))}
 .card h3{margin-bottom:12px;color:var(--main-color);font-size:20px}
 .card p{line-height:1.6;color:var(--text-gray)}
 /* 医师团队样式 */
@@ -97,7 +98,7 @@ img{max-width:100%;height:auto;pointer-events:none}
 .contact-item p{font-size:16px;color:var(--text-gray)}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
 .map-link{color:var(--main-color);text-decoration:underline;cursor:pointer;}
-/* 案例轮播样式 - 重构为JS控制，确保点击生效 */
+/* 案例轮播样式 - 保留点击切图功能 */
 .case{background:#fff;padding:60px 0;position:relative;z-index:1}
 .case-swiper{width:100%;overflow:hidden;position:relative;height:280px;margin:0 auto;cursor:pointer;}
 .case-list{display:flex;align-items:center;height:100%;position:relative;transition:transform 0.3s ease-out;}
@@ -123,9 +124,10 @@ img{max-width:100%;height:auto;pointer-events:none}
   .banner h1{font-size:28px}
   .banner p{font-size:16px}
   .title{font-size:26px}
-  /* 诊所轮播移动端适配 - 速度不变 */
+  /* 诊所轮播移动端适配 */
   .about-img{height:300px;}
-  .card-img{width:80px;height:80px}
+  /* 诊疗项目图片移动端适配：同步放大，从80px改为110px */
+  .card-img{width:110px;height:110px}
   .grid{gap:16px;}
   .card{padding:24px 16px;}
   /* 案例轮播移动端适配 */
@@ -173,7 +175,7 @@ img{max-width:100%;height:auto;pointer-events:none}
         <p>我们拥有一支经验丰富的医师团队，引进先进的数字化诊疗设备，严格遵循国际医疗标准，为您提供安全、舒适的诊疗体验。</p>
         <p>从预防保健到复杂修复，从儿童齿科到成人正畸，我们覆盖全年龄段口腔健康需求，让您和家人都能拥有健康美丽的笑容。</p>
       </div>
-      <!-- 诊所环境6张图可拖动轮播 - 速度保留原有配置 -->
+      <!-- 诊所环境6张图轮播 - 支持点击切图 -->
       <div class="about-img" id="clinicSwiper">
         <div class="clinic-swiper">
           <div class="clinic-list" id="clinicList">
@@ -300,11 +302,9 @@ img{max-width:100%;height:auto;pointer-events:none}
       </form>
       <div class="booking-wechat">
         <h3 class="wechat-title">微信扫码 立即预约</h3>
-        <!-- 文字修改：扫描下方二维码 → 长按图片识别二维码 -->
         <p class="wechat-desc">长按图片识别二维码，添加客服微信</p>
         <p class="wechat-desc">发送【预约项目+姓名+电话】</p>
         <img src="images/wechat-qrcode.jpg" alt="微信预约二维码" class="wechat-qrcode">
-        <!-- 二维码长按提示 -->
         <div class="qrcode-tip">长按图片识别二维码加好友</div>
         <p class="wechat-tips">温馨提示：添加时请备注“口腔预约”</p>
       </div>
@@ -334,7 +334,6 @@ img{max-width:100%;height:auto;pointer-events:none}
   <div class="container">
     <h2 class="title">诊疗案例展示</h2>
     <p class="subtitle">真实诊疗案例参考，见证牙齿蜕变过程</p>
-    <!-- 案例轮播：JS控制，确保点击生效 -->
     <div class="case-swiper" id="caseSwiper">
       <div class="case-list" id="caseList">
         <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
@@ -345,7 +344,7 @@ img{max-width:100%;height:auto;pointer-events:none}
         <div class="case-item"><img src="images/case6.jpg" alt="牙周治疗案例"></div>
         <div class="case-item"><img src="images/case7.jpg" alt="全瓷贴面案例"></div>
         <div class="case-item"><img src="images/case8.jpg" alt="根管治疗案例"></div>
-        <!-- 无缝滚动复制（保证循环） -->
+        <!-- 无缝滚动复制 -->
         <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
         <div class="case-item"><img src="images/case2.jpg" alt="隐形矫正案例"></div>
         <div class="case-item"><img src="images/case3.jpg" alt="金属托槽矫正案例"></div>
@@ -422,7 +421,7 @@ if (qrcodeImg) {
   });
 }
 
-// 诊所环境6张图轮播 - 速度完全保留原有配置，未做任何修改
+// 诊所环境6张图轮播 - 新增点击切图功能，保留原有速度和拖动功能
 const clinicSwiper = document.getElementById('clinicSwiper');
 const clinicList = document.getElementById('clinicList');
 let startX = 0;
@@ -432,14 +431,14 @@ let autoPlayTimer = null;
 let isDragging = false;
 // 诊所轮播原有速度配置（未修改）
 const clinicConfig = {
-  speed: 3000, // 原有基础速度，保持不变
-  speedFast: 500, // 原有拖动加速速度，保持不变
-  imgCount: 6,
-  imgWidth: 100
+  speed: 3000, // 基础自动播放速度
+  speedFast: 500, // 拖动加速速度
+  imgCount: 6, // 实际图片数量
+  imgWidth: 100 // 单张图片宽度百分比
 };
 // 初始化诊所轮播自动播放
 initClinicAutoPlay();
-// 诊所轮播鼠标/触屏事件（原有逻辑，未修改）
+// 诊所轮播鼠标/触屏事件（保留原有拖动功能）
 clinicSwiper.addEventListener('mousedown', startClinicDrag);
 clinicSwiper.addEventListener('touchstart', startClinicDrag, {passive: true});
 document.addEventListener('mousemove', dragClinicMove);
@@ -447,6 +446,20 @@ document.addEventListener('touchmove', dragClinicMove, {passive: true});
 document.addEventListener('mouseup', endClinicDrag);
 document.addEventListener('touchend', endClinicDrag);
 clinicSwiper.addEventListener('mouseleave', endClinicDrag);
+// 新增：诊所轮播左键点击切下一张
+clinicSwiper.addEventListener('click', function(e) {
+  if (e.button === 0 && !isDragging) { // 仅左键+非拖动状态触发
+    nextClinicSlide();
+  }
+});
+// 鼠标悬停暂停，离开续播
+clinicSwiper.addEventListener('mouseenter', function() {
+  clearInterval(autoPlayTimer);
+});
+clinicSwiper.addEventListener('mouseleave', function() {
+  initClinicAutoPlay();
+});
+// 开始拖动
 function startClinicDrag(e) {
   isDragging = true;
   clearInterval(autoPlayTimer);
@@ -454,12 +467,14 @@ function startClinicDrag(e) {
   currentX = getClinicTransformX();
   clinicList.style.transition = 'none';
 }
+// 拖动中
 function dragClinicMove(e) {
   if (!isDragging) return;
   moveX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
   const diffX = (startX - moveX) * 1.2;
   setClinicTransformX(currentX - diffX);
 }
+// 结束拖动
 function endClinicDrag() {
   if (!isDragging) return;
   isDragging = false;
@@ -475,30 +490,43 @@ function endClinicDrag() {
   }, 3000);
   clinicSeamlessReset();
 }
+// 诊所轮播切换到下一张（点击触发）
+function nextClinicSlide() {
+  let currentTransform = getClinicTransformX();
+  currentTransform -= clinicConfig.imgWidth * (window.innerWidth / 100); // 按屏幕宽度计算偏移
+  setClinicTransformX(currentTransform);
+  clinicSeamlessReset();
+}
+// 获取诊所轮播当前transformX值
 function getClinicTransformX() {
   const transform = window.getComputedStyle(clinicList).transform;
   return transform === 'none' ? 0 : parseFloat(transform.split(',')[4] || 0);
 }
+// 设置诊所轮播transformX值
 function setClinicTransformX(x) {
   clinicList.style.transform = `translateX(${x}px)`;
 }
+// 初始化诊所轮播自动播放
 function initClinicAutoPlay() {
   autoPlayTimer = setInterval(clinicAutoPlay, clinicConfig.speed);
 }
+// 诊所轮播自动播放逻辑
 function clinicAutoPlay() {
   let currentTransform = getClinicTransformX();
-  currentTransform -= clinicConfig.imgWidth;
+  currentTransform -= clinicConfig.imgWidth * (window.innerWidth / 100);
   setClinicTransformX(currentTransform);
   clinicSeamlessReset();
 }
+// 诊所轮播无缝复位
 function clinicSeamlessReset() {
-  const maxTransform = -clinicConfig.imgCount * clinicConfig.imgWidth;
+  const maxTransform = -clinicConfig.imgCount * (window.innerWidth / 100) * clinicConfig.imgWidth;
   const currentTransform = getClinicTransformX();
   if (currentTransform <= maxTransform) {
     clinicList.style.transition = 'none';
     setClinicTransformX(0);
   }
 }
+// 窗口大小变化时重置诊所轮播
 window.addEventListener('resize', () => {
   clearInterval(autoPlayTimer);
   clinicList.style.transition = 'none';
@@ -506,64 +534,53 @@ window.addEventListener('resize', () => {
   initClinicAutoPlay();
 });
 
-// 案例轮播核心修复：纯JS控制，确保点击切图100%生效
+// 案例轮播核心功能（保留点击切图+加速播放）
 const caseSwiper = document.getElementById('caseSwiper');
 const caseList = document.getElementById('caseList');
 let caseAutoTimer = null;
-let caseItemWidth = 0; // 单张案例图宽度（含间距）
+let caseItemWidth = 0;
 const caseConfig = {
-  speed: 1500, // 自动播放速度（加快，原20秒循环改为快速单张切换）
-  itemCount: 8 // 实际案例图片数量
+  speed: 1500,
+  itemCount: 8
 };
-
-// 初始化案例轮播（获取宽度+启动自动播放）
+// 初始化案例轮播
 window.addEventListener('load', initCaseSwiper);
 window.addEventListener('resize', initCaseSwiper);
-
-// 左键点击切下一张（核心修复：直接控制transform偏移）
+// 案例轮播点击切图
 caseSwiper.addEventListener('click', function(e) {
-  if (e.button === 0) { // 仅响应左键
+  if (e.button === 0) {
     nextCaseSlide();
   }
 });
-
-// 鼠标悬停暂停，离开续播
+// 案例轮播悬停暂停
 caseSwiper.addEventListener('mouseenter', function() {
   clearInterval(caseAutoTimer);
 });
 caseSwiper.addEventListener('mouseleave', function() {
   startCaseAutoPlay();
 });
-
 // 初始化案例轮播参数
 function initCaseSwiper() {
   const firstCase = document.querySelector('.case-item');
   if (firstCase) {
-    // 计算单张图片宽度 + 左右间距（margin:0 15px）
     caseItemWidth = firstCase.offsetWidth + 30;
   }
-  // 重置位置+重启自动播放
   caseList.style.transform = 'translateX(0)';
   clearInterval(caseAutoTimer);
   startCaseAutoPlay();
 }
-
 // 启动案例自动播放
 function startCaseAutoPlay() {
   caseAutoTimer = setInterval(nextCaseSlide, caseConfig.speed);
 }
-
-// 切换到下一张案例图
+// 案例轮播切换到下一张
 function nextCaseSlide() {
   const currentTransform = getCaseTransformX();
-  // 计算下一张偏移量（向左移动单张宽度）
   const nextTransform = currentTransform - caseItemWidth;
-  // 无缝复位判断：当滑动到复制的第一张图时，瞬间重置
   const maxOffset = -caseConfig.itemCount * caseItemWidth;
   if (currentTransform <= maxOffset) {
     caseList.style.transition = 'none';
     caseList.style.transform = `translateX(0)`;
-    // 延迟触发过渡，确保视觉无缝
     setTimeout(() => {
       caseList.style.transition = 'transform 0.3s ease-out';
       nextCaseSlide();
@@ -573,7 +590,6 @@ function nextCaseSlide() {
     caseList.style.transform = `translateX(${nextTransform}px)`;
   }
 }
-
 // 获取案例轮播当前transformX值
 function getCaseTransformX() {
   const transform = window.getComputedStyle(caseList).transform;
