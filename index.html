@@ -97,19 +97,12 @@ img{max-width:100%;height:auto;pointer-events:none}
 .contact-item p{font-size:16px;color:var(--text-gray)}
 .tel{font-size:24px;font-weight:bold;color:var(--main-color);margin:16px 0;display:inline-block}
 .map-link{color:var(--main-color);text-decoration:underline;cursor:pointer;}
-/* 案例轮播样式 - 加速+点击切图+鼠标离开续播 */
+/* 案例轮播样式 - 重构为JS控制，确保点击生效 */
 .case{background:#fff;padding:60px 0;position:relative;z-index:1}
 .case-swiper{width:100%;overflow:hidden;position:relative;height:280px;margin:0 auto;cursor:pointer;}
-.case-list{display:flex;animation:caseScroll 8s linear infinite;align-items:center;height:100%;}
+.case-list{display:flex;align-items:center;height:100%;position:relative;transition:transform 0.3s ease-out;}
 .case-item{flex:0 0 280px;margin:0 15px;height:220px;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.08);}
 .case-item img{width:100%;height:100%;object-fit:cover;}
-/* 案例轮播加速动画：8秒完成一次循环（原20秒） */
-@keyframes caseScroll {
-  0% {transform:translateX(0);}
-  100% {transform:translateX(-50%);}
-}
-/* 鼠标悬停暂停，离开继续 */
-.case-swiper:hover .case-list{animation-play-state:paused;}
 .case-swiper::before,
 .case-swiper::after{content:'';position:absolute;top:0;width:60px;height:100%;z-index:2;pointer-events:none;}
 .case-swiper::before{left:0;background:linear-gradient(to right,#fff,transparent);}
@@ -135,7 +128,7 @@ img{max-width:100%;height:auto;pointer-events:none}
   .card-img{width:80px;height:80px}
   .grid{gap:16px;}
   .card{padding:24px 16px;}
-  /* 案例轮播移动端适配 - 同步加速 */
+  /* 案例轮播移动端适配 */
   .case-swiper{height:220px;cursor:pointer;}
   .case-item{flex:0 0 200px;height:160px;margin:0 10px;}
   .case-swiper::before,
@@ -341,7 +334,7 @@ img{max-width:100%;height:auto;pointer-events:none}
   <div class="container">
     <h2 class="title">诊疗案例展示</h2>
     <p class="subtitle">真实诊疗案例参考，见证牙齿蜕变过程</p>
-    <!-- 案例轮播：添加id用于点击事件 -->
+    <!-- 案例轮播：JS控制，确保点击生效 -->
     <div class="case-swiper" id="caseSwiper">
       <div class="case-list" id="caseList">
         <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
@@ -352,7 +345,7 @@ img{max-width:100%;height:auto;pointer-events:none}
         <div class="case-item"><img src="images/case6.jpg" alt="牙周治疗案例"></div>
         <div class="case-item"><img src="images/case7.jpg" alt="全瓷贴面案例"></div>
         <div class="case-item"><img src="images/case8.jpg" alt="根管治疗案例"></div>
-        <!-- 无缝滚动复制 -->
+        <!-- 无缝滚动复制（保证循环） -->
         <div class="case-item"><img src="images/case1.jpg" alt="种植牙案例"></div>
         <div class="case-item"><img src="images/case2.jpg" alt="隐形矫正案例"></div>
         <div class="case-item"><img src="images/case3.jpg" alt="金属托槽矫正案例"></div>
@@ -513,50 +506,78 @@ window.addEventListener('resize', () => {
   initClinicAutoPlay();
 });
 
-// 案例轮播核心升级：加速+左键点击切下一张+鼠标离开续播
+// 案例轮播核心修复：纯JS控制，确保点击切图100%生效
 const caseSwiper = document.getElementById('caseSwiper');
 const caseList = document.getElementById('caseList');
-// 案例轮播单张宽度（PC+移动端自适应）
-let caseItemWidth = 0;
-// 初始化案例轮播参数
-initCaseParams();
-// 窗口大小变化重新初始化
-window.addEventListener('resize', initCaseParams);
-// 左键点击切下一张
+let caseAutoTimer = null;
+let caseItemWidth = 0; // 单张案例图宽度（含间距）
+const caseConfig = {
+  speed: 1500, // 自动播放速度（加快，原20秒循环改为快速单张切换）
+  itemCount: 8 // 实际案例图片数量
+};
+
+// 初始化案例轮播（获取宽度+启动自动播放）
+window.addEventListener('load', initCaseSwiper);
+window.addEventListener('resize', initCaseSwiper);
+
+// 左键点击切下一张（核心修复：直接控制transform偏移）
 caseSwiper.addEventListener('click', function(e) {
-  // 仅左键触发
-  if (e.button === 0) {
-    e.preventDefault();
-    // 暂停动画，手动切图
-    caseList.style.animationPlayState = 'paused';
-    // 计算偏移量，切到下一张
-    const currentLeft = parseFloat(getComputedStyle(caseList).left) || 0;
-    caseList.style.left = `${currentLeft - caseItemWidth - 30}px`; // 30为图片间距
-    // 无缝复位判断
-    caseSeamlessReset();
-    // 延迟100ms恢复动画，实现点击后继续自动播放
-    setTimeout(() => {
-      caseList.style.animationPlayState = 'running';
-    }, 100);
+  if (e.button === 0) { // 仅响应左键
+    nextCaseSlide();
   }
 });
-// 初始化案例轮播参数（获取单张图片宽度）
-function initCaseParams() {
-  const caseItem = document.querySelector('.case-item');
-  if (caseItem) {
-    // 获取单张图片宽度+左右间距
-    caseItemWidth = caseItem.offsetWidth + 30;
+
+// 鼠标悬停暂停，离开续播
+caseSwiper.addEventListener('mouseenter', function() {
+  clearInterval(caseAutoTimer);
+});
+caseSwiper.addEventListener('mouseleave', function() {
+  startCaseAutoPlay();
+});
+
+// 初始化案例轮播参数
+function initCaseSwiper() {
+  const firstCase = document.querySelector('.case-item');
+  if (firstCase) {
+    // 计算单张图片宽度 + 左右间距（margin:0 15px）
+    caseItemWidth = firstCase.offsetWidth + 30;
+  }
+  // 重置位置+重启自动播放
+  caseList.style.transform = 'translateX(0)';
+  clearInterval(caseAutoTimer);
+  startCaseAutoPlay();
+}
+
+// 启动案例自动播放
+function startCaseAutoPlay() {
+  caseAutoTimer = setInterval(nextCaseSlide, caseConfig.speed);
+}
+
+// 切换到下一张案例图
+function nextCaseSlide() {
+  const currentTransform = getCaseTransformX();
+  // 计算下一张偏移量（向左移动单张宽度）
+  const nextTransform = currentTransform - caseItemWidth;
+  // 无缝复位判断：当滑动到复制的第一张图时，瞬间重置
+  const maxOffset = -caseConfig.itemCount * caseItemWidth;
+  if (currentTransform <= maxOffset) {
+    caseList.style.transition = 'none';
+    caseList.style.transform = `translateX(0)`;
+    // 延迟触发过渡，确保视觉无缝
+    setTimeout(() => {
+      caseList.style.transition = 'transform 0.3s ease-out';
+      nextCaseSlide();
+    }, 50);
+  } else {
+    caseList.style.transition = 'transform 0.3s ease-out';
+    caseList.style.transform = `translateX(${nextTransform}px)`;
   }
 }
-// 案例轮播无缝复位
-function caseSeamlessReset() {
-  const caseItemTotal = document.querySelectorAll('.case-item').length / 2;
-  const maxLeft = -caseItemTotal * caseItemWidth;
-  const currentLeft = parseFloat(getComputedStyle(caseList).left) || 0;
-  // 滑到复制区域，瞬间复位
-  if (currentLeft <= maxLeft) {
-    caseList.style.left = '0px';
-  }
+
+// 获取案例轮播当前transformX值
+function getCaseTransformX() {
+  const transform = window.getComputedStyle(caseList).transform;
+  return transform === 'none' ? 0 : parseFloat(transform.split(',')[4] || 0);
 }
 </script>
 </body>
